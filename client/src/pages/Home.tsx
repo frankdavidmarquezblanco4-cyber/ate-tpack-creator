@@ -36,25 +36,21 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/creator">
-              <a>
-                <Button 
-                  size="lg"
-                  className="bg-orange-600 hover:bg-orange-700 text-white gap-2 rounded-lg"
-                >
-                  Comenzar a Crear <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
+              <Button 
+                size="lg"
+                className="bg-orange-600 hover:bg-orange-700 text-white gap-2 rounded-lg"
+              >
+                Comenzar a Crear <ArrowRight className="w-5 h-5" />
+              </Button>
             </Link>
             <Link href="/learn">
-              <a>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="bg-white hover:bg-blue-50 text-blue-700 border-white gap-2 rounded-lg"
-                >
-                  Aprender Primero <BookOpen className="w-5 h-5" />
-                </Button>
-              </a>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="bg-white hover:bg-blue-50 text-blue-700 border-white gap-2 rounded-lg"
+              >
+                Aprender Primero <BookOpen className="w-5 h-5" />
+              </Button>
             </Link>
           </div>
         </div>
@@ -85,10 +81,8 @@ export default function Home() {
                 Comprende los 6 componentes esenciales de una ATE y cómo se integran 
                 el conocimiento de contenido, pedagógico y tecnológico.
               </p>
-              <Link href="/learn">
-                <a className="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-2">
-                  Explorar <ArrowRight className="w-4 h-4" />
-                </a>
+              <Link href="/learn" className="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-2">
+                Explorar <ArrowRight className="w-4 h-4" />
               </Link>
             </Card>
 
@@ -102,10 +96,8 @@ export default function Home() {
                 Observa un ejemplo completo: "Drones para monitoreo de erosión costera". 
                 Entiende cómo se estructura una ATE desde el problema hasta la evaluación.
               </p>
-              <Link href="/example">
-                <a className="text-green-600 hover:text-green-700 font-semibold flex items-center gap-2">
-                  Ver Ejemplo <ArrowRight className="w-4 h-4" />
-                </a>
+              <Link href="/example" className="text-green-600 hover:text-green-700 font-semibold flex items-center gap-2">
+                Ver Ejemplo <ArrowRight className="w-4 h-4" />
               </Link>
             </Card>
 
@@ -119,10 +111,8 @@ export default function Home() {
                 Diseña tu propia ATE con nuestro wizard interactivo. Incluye validación, 
                 autoguardado y exportación a PDF, Word y presentaciones.
               </p>
-              <Link href="/creator">
-                <a className="text-orange-600 hover:text-orange-700 font-semibold flex items-center gap-2">
-                  Crear Ahora <ArrowRight className="w-4 h-4" />
-                </a>
+              <Link href="/creator" className="text-orange-600 hover:text-orange-700 font-semibold flex items-center gap-2">
+                Crear Ahora <ArrowRight className="w-4 h-4" />
               </Link>
             </Card>
           </div>
@@ -194,14 +184,12 @@ export default function Home() {
             de aprendizaje transformadoras.
           </p>
           <Link href="/creator">
-            <a>
-              <Button 
-                size="lg"
-                className="bg-orange-600 hover:bg-orange-700 text-white gap-2 rounded-lg"
-              >
-                Crear mi Primera ATE <ArrowRight className="w-5 h-5" />
-              </Button>
-            </a>
+            <Button 
+              size="lg"
+              className="bg-orange-600 hover:bg-orange-700 text-white gap-2 rounded-lg"
+            >
+              Crear mi Primera ATE <ArrowRight className="w-5 h-5" />
+            </Button>
           </Link>
         </div>
       </section>
