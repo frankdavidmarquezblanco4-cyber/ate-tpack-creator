@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -67,6 +68,10 @@ const initialData: ATEData = {
 export default function Creator() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<ATEData>(initialData);
+  const [customPedagogy, setCustomPedagogy] = useState("");
+  const [customTechType, setCustomTechType] = useState("");
+  const [customTechCost, setCustomTechCost] = useState("");
+  const [customDuration, setCustomDuration] = useState("");
 
   useEffect(() => {
     const saved = localStorage.getItem("ateFormData");
@@ -199,11 +204,22 @@ export default function Creator() {
               className="w-full min-h-24"
             />
           </div>
-          <div>
+          <div className="space-y-3">
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Estrategia Pedagógica (PK) *
             </label>
-            <Select value={formData.pedagogicalStrategy} onValueChange={(value) => handleInputChange("pedagogicalStrategy", value)}>
+            <Select 
+              value={formData.pedagogicalStrategy === customPedagogy && customPedagogy ? "other" : formData.pedagogicalStrategy} 
+              onValueChange={(value) => {
+                if (value === "other") {
+                  handleInputChange("pedagogicalStrategy", "");
+                  setCustomPedagogy("");
+                } else {
+                  handleInputChange("pedagogicalStrategy", value);
+                  setCustomPedagogy("");
+                }
+              }}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Seleccionar estrategia…" />
               </SelectTrigger>
@@ -212,8 +228,20 @@ export default function Creator() {
                 <SelectItem value="abpr">Aprendizaje Basado en Problemas</SelectItem>
                 <SelectItem value="flipped">Aula Invertida (Flipped Classroom)</SelectItem>
                 <SelectItem value="gamification">Gamificación</SelectItem>
+                <SelectItem value="other">Otro (especificar)</SelectItem>
               </SelectContent>
             </Select>
+            {(formData.pedagogicalStrategy === "" && customPedagogy) || (formData.pedagogicalStrategy && !["abp", "abpr", "flipped", "gamification"].includes(formData.pedagogicalStrategy)) ? (
+              <Input
+                placeholder="Describe tu estrategia pedagógica personalizada"
+                value={formData.pedagogicalStrategy}
+                onChange={(e) => {
+                  handleInputChange("pedagogicalStrategy", e.target.value);
+                  setCustomPedagogy(e.target.value);
+                }}
+                className="w-full"
+              />
+            ) : null}
           </div>
           <div>
             <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -246,11 +274,22 @@ export default function Creator() {
             />
           </div>
           <div className="grid md:grid-cols-2 gap-4">
-            <div>
+            <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Tipo de Tecnología
               </label>
-              <Select value={formData.technologyType} onValueChange={(value) => handleInputChange("technologyType", value)}>
+              <Select 
+                value={formData.technologyType === customTechType && customTechType ? "other" : formData.technologyType} 
+                onValueChange={(value) => {
+                  if (value === "other") {
+                    handleInputChange("technologyType", "");
+                    setCustomTechType("");
+                  } else {
+                    handleInputChange("technologyType", value);
+                    setCustomTechType("");
+                  }
+                }}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Seleccionar…" />
                 </SelectTrigger>
@@ -258,14 +297,37 @@ export default function Creator() {
                   <SelectItem value="mobile">App móvil</SelectItem>
                   <SelectItem value="web">Plataforma web</SelectItem>
                   <SelectItem value="physical">Dispositivo físico</SelectItem>
+                  <SelectItem value="other">Otro</SelectItem>
                 </SelectContent>
               </Select>
+              {(formData.technologyType === "" && customTechType) || (formData.technologyType && !["mobile", "web", "physical"].includes(formData.technologyType)) ? (
+                <Input
+                  placeholder="Especifica el tipo de tecnología"
+                  value={formData.technologyType}
+                  onChange={(e) => {
+                    handleInputChange("technologyType", e.target.value);
+                    setCustomTechType(e.target.value);
+                  }}
+                  className="w-full"
+                />
+              ) : null}
             </div>
-            <div>
+            <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Acceso / Costo
               </label>
-              <Select value={formData.technologyCost} onValueChange={(value) => handleInputChange("technologyCost", value)}>
+              <Select 
+                value={formData.technologyCost === customTechCost && customTechCost ? "other" : formData.technologyCost} 
+                onValueChange={(value) => {
+                  if (value === "other") {
+                    handleInputChange("technologyCost", "");
+                    setCustomTechCost("");
+                  } else {
+                    handleInputChange("technologyCost", value);
+                    setCustomTechCost("");
+                  }
+                }}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Seleccionar…" />
                 </SelectTrigger>
@@ -273,8 +335,20 @@ export default function Creator() {
                   <SelectItem value="free">Gratuita</SelectItem>
                   <SelectItem value="freemium">Freemium</SelectItem>
                   <SelectItem value="paid">Paga – licencia institucional</SelectItem>
+                  <SelectItem value="other">Otro</SelectItem>
                 </SelectContent>
               </Select>
+              {(formData.technologyCost === "" && customTechCost) || (formData.technologyCost && !["free", "freemium", "paid"].includes(formData.technologyCost)) ? (
+                <Input
+                  placeholder="Especifica el tipo de acceso/costo"
+                  value={formData.technologyCost}
+                  onChange={(e) => {
+                    handleInputChange("technologyCost", e.target.value);
+                    setCustomTechCost(e.target.value);
+                  }}
+                  className="w-full"
+                />
+              ) : null}
             </div>
           </div>
           <div>
@@ -307,11 +381,22 @@ export default function Creator() {
       description: "Apertura, Desarrollo y Cierre",
       content: (
         <div className="space-y-6">
-          <div>
+          <div className="space-y-3">
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Duración Total de la Lección *
             </label>
-            <Select value={formData.totalDuration} onValueChange={(value) => handleInputChange("totalDuration", value)}>
+            <Select 
+              value={formData.totalDuration === customDuration && customDuration ? "other" : formData.totalDuration} 
+              onValueChange={(value) => {
+                if (value === "other") {
+                  handleInputChange("totalDuration", "");
+                  setCustomDuration("");
+                } else {
+                  handleInputChange("totalDuration", value);
+                  setCustomDuration("");
+                }
+              }}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Seleccionar…" />
               </SelectTrigger>
@@ -319,9 +404,32 @@ export default function Creator() {
                 <SelectItem value="60">60 minutos</SelectItem>
                 <SelectItem value="75">75 minutos</SelectItem>
                 <SelectItem value="90">90 minutos</SelectItem>
+                <SelectItem value="other">Otra duración</SelectItem>
               </SelectContent>
             </Select>
+            {(formData.totalDuration === "" && customDuration) || (formData.totalDuration && !["60", "75", "90"].includes(formData.totalDuration)) ? (
+              <div className="space-y-2">
+                <Input
+                  type="number"
+                  placeholder="Ingresa la duración en minutos (solo números)"
+                  value={formData.totalDuration}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === "" || /^\d+$/.test(value)) {
+                      handleInputChange("totalDuration", value);
+                      setCustomDuration(value);
+                    }
+                  }}
+                  className="w-full"
+                  min="1"
+                />
+                <p className="text-xs text-gray-500">
+                  Solo se aceptan valores numéricos. Ejemplo: 45, 120, 180
+                </p>
+              </div>
+            ) : null}
           </div>
+
           <div className="border-t-2 border-blue-200 pt-6">
             <h3 className="text-lg font-bold text-gray-900 mb-4">① Apertura / Enganche</h3>
             <Input
@@ -343,6 +451,7 @@ export default function Creator() {
               className="w-full min-h-16"
             />
           </div>
+
           <div className="border-t-2 border-green-200 pt-6">
             <h3 className="text-lg font-bold text-gray-900 mb-4">② Desarrollo / Construcción</h3>
             <Input
@@ -364,6 +473,7 @@ export default function Creator() {
               className="w-full min-h-16"
             />
           </div>
+
           <div className="border-t-2 border-orange-200 pt-6">
             <h3 className="text-lg font-bold text-gray-900 mb-4">③ Cierre / Evaluación</h3>
             <Input
@@ -397,6 +507,15 @@ export default function Creator() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-orange-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
+        <div className="mb-8 flex items-center gap-3">
+          <Link href="/">
+            <Button variant="outline" className="gap-2">
+              ← Inicio
+            </Button>
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-900">Crear ATE</h1>
+        </div>
+
         <div className="mb-8">
           <div className="flex justify-between mb-4">
             {steps.map((step, idx) => (
@@ -459,7 +578,7 @@ export default function Creator() {
           <div className="mt-8 p-6 bg-white rounded-lg border-2 border-dashed border-gray-300">
             <h3 className="text-lg font-bold text-gray-900 mb-4">Exportar tu ATE</h3>
             <div className="grid md:grid-cols-3 gap-4">
-              <Button 
+              <Button
                 onClick={() => {
                   exportToPDF(formData);
                   toast.success("PDF descargado correctamente");
@@ -472,7 +591,7 @@ export default function Creator() {
                   <div className="text-xs opacity-90">Documento maquetado</div>
                 </div>
               </Button>
-              <Button 
+              <Button
                 onClick={() => {
                   exportToWord(formData);
                   toast.success("Word descargado correctamente");
@@ -485,7 +604,7 @@ export default function Creator() {
                   <div className="text-xs opacity-90">Documento editable</div>
                 </div>
               </Button>
-              <Button 
+              <Button
                 onClick={() => {
                   exportToPowerPoint(formData);
                   toast.success("Presentación descargada correctamente");
