@@ -86,9 +86,26 @@ export default function Creator() {
   //   }
   // }, []);
 
+  const validateAllFieldsForSave = (): boolean => {
+    if (!formData.projectName.trim() || !formData.secretCode.trim() || 
+        !formData.disciplinaryArea.trim() || !formData.grade.trim()) return false;
+    if (!formData.learningObjective.trim() || !formData.pedagogicalStrategy.trim() || 
+        !formData.strategyJustification.trim()) return false;
+    if (!formData.technology.trim() || !formData.technologyType.trim() || 
+        !formData.technologyCost.trim()) return false;
+    if (!formData.totalDuration.trim() || !formData.openingDuration.trim() || 
+        !formData.developmentDuration.trim() || !formData.closingDuration.trim() ||
+        !formData.openingTeacherRole.trim() || !formData.openingStudentRole.trim() ||
+        !formData.developmentTeacherRole.trim() || !formData.developmentStudentRole.trim() ||
+        !formData.closingTeacherRole.trim() || !formData.closingStudentRole.trim()) return false;
+    return true;
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      localStorage.setItem("ateFormData", JSON.stringify(formData));
+      if (validateAllFieldsForSave()) {
+        localStorage.setItem("ateFormData", JSON.stringify(formData));
+      }
     }, 1000);
     return () => clearTimeout(timer);
   }, [formData]);
