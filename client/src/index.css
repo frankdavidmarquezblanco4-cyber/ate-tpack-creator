@@ -43,15 +43,23 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
+  /* TPACK Pedagogical Colors */
+  --color-ck-blue: #1e40af;        /* Content Knowledge - Blue */
+  --color-pk-green: #16a34a;       /* Pedagogical Knowledge - Green */
+  --color-tk-orange: #ea580c;      /* Technological Knowledge - Orange */
+  --color-ck-light: #dbeafe;       /* Light Blue */
+  --color-pk-light: #dcfce7;       /* Light Green */
+  --color-tk-light: #fed7aa;       /* Light Orange */
+  
+  --primary: #1e40af;              /* CK Blue */
+  --primary-foreground: #f0f9ff;
+  --sidebar-primary: #1e40af;
+  --sidebar-primary-foreground: #f0f9ff;
+  --chart-1: #16a34a;              /* PK Green */
+  --chart-2: #ea580c;              /* TK Orange */
+  --chart-3: #1e40af;              /* CK Blue */
+  --chart-4: #7c3aed;              /* Purple for Didactic Sequence */
+  --chart-5: #06b6d4;              /* Teal for Evaluation */
   --radius: 0.65rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.235 0.015 65);
@@ -59,30 +67,30 @@
   --card-foreground: oklch(0.235 0.015 65);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --secondary: #16a34a;            /* PK Green */
+  --secondary-foreground: #f0fdf4;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #ea580c;               /* TK Orange */
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #fef2f2;
+  --border: #e5e7eb;
+  --input: #f3f4f6;
+  --ring: #1e40af;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1f2937;
+  --sidebar-accent: #dbeafe;
+  --sidebar-accent-foreground: #1e40af;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #1e40af;
 }
 
 .dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
+  --primary: #1e40af;
+  --primary-foreground: #f0f9ff;
+  --sidebar-primary: #1e40af;
+  --sidebar-primary-foreground: #f0f9ff;
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.85 0.005 65);
   --card: oklch(0.21 0.006 285.885);
@@ -100,11 +108,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
+  --chart-1: #16a34a;
+  --chart-2: #ea580c;
+  --chart-3: #1e40af;
+  --chart-4: #7c3aed;
+  --chart-5: #06b6d4;
   --sidebar: oklch(0.21 0.006 285.885);
   --sidebar-foreground: oklch(0.85 0.005 65);
   --sidebar-accent: oklch(0.274 0.006 286.033);
@@ -118,7 +126,27 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
+  h1 {
+    @apply text-4xl tracking-tight;
+  }
+  h2 {
+    @apply text-3xl tracking-tight;
+  }
+  h3 {
+    @apply text-2xl tracking-tight;
+  }
+  h4 {
+    @apply text-xl font-semibold;
+  }
+  p {
+    @apply text-base leading-relaxed;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
