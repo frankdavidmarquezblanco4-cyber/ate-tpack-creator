@@ -90,8 +90,7 @@ export default function Creator() {
     const timer = setTimeout(() => {
       localStorage.setItem("ateFormData", JSON.stringify(formData));
     }, 1000);
-    return (
-    // Nuevo diseño profesional) => clearTimeout(timer);
+    return () => clearTimeout(timer);
   }, [formData]);
 
   const handleInputChange = (field: string, value: string) => {
@@ -547,7 +546,6 @@ export default function Creator() {
   const isLastStep = currentStep === steps.length - 1;
 
   return (
-    // Nuevo diseño profesional
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
