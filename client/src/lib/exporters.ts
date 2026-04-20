@@ -307,28 +307,53 @@ export const exportToWord = async (data: ATEData) => {
 
 export const exportToPowerPoint = (data: ATEData) => {
   const prs = new PptxGenJS();
+  prs.defineLayout({ name: "LAYOUT1", width: 10, height: 7.5 });
 
-  // Slide 1: Title
+  // Slide 1: Title with gradient effect
   let slide = prs.addSlide();
-  slide.background = { color: "1E40AF" };
+  slide.background = { color: "0F3A7D" };
+  
+  // Decorative shapes
+  slide.addShape(prs.ShapeType.rect, {
+    x: 0,
+    y: 0,
+    w: 10,
+    h: 1.5,
+    fill: { color: "1E40AF" },
+  });
+  
   slide.addText(data.projectName, {
     x: 0.5,
     y: 2,
     w: 9,
-    h: 1,
-    fontSize: 44,
+    h: 1.2,
+    fontSize: 48,
     bold: true,
     color: "FFFFFF",
     align: "center",
+    fontFace: "Arial",
   });
+  
   slide.addText("Actividad Tecnológica Escolar", {
     x: 0.5,
     y: 3.5,
     w: 9,
-    h: 0.5,
-    fontSize: 24,
+    h: 0.6,
+    fontSize: 28,
     color: "E0E7FF",
     align: "center",
+    fontFace: "Arial",
+  });
+  
+  slide.addText(`Área: ${data.disciplinaryArea} | Grado: ${data.grade}`, {
+    x: 0.5,
+    y: 5,
+    w: 9,
+    h: 0.5,
+    fontSize: 16,
+    color: "B3D9FF",
+    align: "center",
+    italic: true,
   });
 
   // Slide 2: Problem

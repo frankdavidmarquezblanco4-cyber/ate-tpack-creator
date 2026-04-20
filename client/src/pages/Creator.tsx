@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download } from "lucide-react";
+import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { exportToPDF, exportToWord, exportToPowerPoint } from "@/lib/exporters";
 
@@ -100,7 +100,42 @@ export default function Creator() {
     }));
   };
 
-  const steps = [
+  const validateStep = (stepIndex: number): { valid: boolean; missingFields: string[] } => {
+    const missing: string[] = [];
+    
+    if (stepIndex === 0) {
+      if (!formData.projectName.trim()) missing.push("Nombre del proyecto");
+      if (!formData.secretCode.trim()) missing.push("Código de acceso");
+      if (!formData.disciplinaryArea.trim()) missing.push("Área disciplinar");
+      if (!formData.grade.trim()) missing.push("Grado");
+    } else if (stepIndex === 1) {
+      if (!formData.learningObjective.trim()) missing.push("Objetivo de aprendizaje");
+      if (!formData.pedagogicalStrategy.trim()) missing.push("Estrategia pedagógica");
+      if (!formData.strategyJustification.trim()) missing.push("Justificación");
+    } else if (stepIndex === 2) {
+      if (!formData.technology.trim()) missing.push("Tecnología");
+      if (!formData.technologyType.trim()) missing.push("Tipo de tecnología");
+      if (!formData.technologyCost.trim()) missing.push("Acceso/Costo");
+    } else if (stepIndex === 3) {
+      if (!formData.totalDuration.trim()) missing.push("Duración total");
+      if (!formData.openingDuration.trim()) missing.push("Duración de Apertura");
+      if (!formData.developmentDuration.trim()) missing.push("Duración de Desarrollo");
+      if (!formData.closingDuration.trim()) missing.push("Duración de Cierre");
+    }
+    
+    return { valid: missing.length === 0, missingFields: missing };
+  };
+
+  const handleNextStep = () => {
+    const validation = validateStep(currentStep);
+    if (!validation.valid) {
+      toast.error(`Campos obligatorios faltantes: ${validation.missingFields.join(", ")}`);
+      return;
+    }
+    setCurrentStep(Math.min(steps.length - 1, currentStep + 1));
+  };
+
+    const steps = [
     {
       title: "Información del Grupo",
       description: "Datos de identificación del equipo de trabajo",
@@ -440,21 +475,24 @@ export default function Creator() {
               </Select>
             ) : (
               <div className="space-y-2">
-                <Input
-                  type="number"
-                  placeholder="Ingresa la duración en minutos (solo números)"
-                  value={formData.totalDuration}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value === "" || /^\d+$/.test(value)) {
-                      handleInputChange("totalDuration", value);
-                    }
-                  }}
-                  className="w-full"
-                  min="1"
-                  autoFocus
-                />
-                <p className="text-xs text-gray-500 mb-2">
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    placeholder="Ingresa la duración"
+                    value={formData.totalDuration}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value === "" || /^\d+$/.test(value)) {
+                        handleInputChange("totalDuration", value);
+                      }
+                    }}
+                    className="w-full"
+                    min="1"
+                    autoFocus
+                  />
+                  {formData.totalDuration && <span className="text-slate-700 font-semibold whitespace-nowrap">minutos</span>}
+                </div>
+                <p className="text-xs text-slate-600 mb-2">
                   Solo se aceptan valores numéricos. Ejemplo: 45, 120, 180
                 </p>
                 <Button
@@ -471,14 +509,27 @@ export default function Creator() {
             )}
           </div>
 
-          <div className="border-t-2 border-blue-200 pt-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">① Apertura / Enganche</h3>
-            <Input
-              placeholder="Duración (Ej: 10–15 min)"
-              value={formData.openingDuration}
-              onChange={(e) => handleInputChange("openingDuration", e.target.value)}
-              className="w-full mb-4"
-            />
+          <div className="border-t-4 border-blue-600 pt-6 mt-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">①</div>
+              <h3 className="text-2xl font-bold text-blue-900">Apertura / Enganche</h3>
+            </div>
+            <div className="flex items-center gap-2 mb-4">
+              <Input
+                type="number"
+                placeholder="Duración *"
+                value={formData.openingDuration}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "" || /^\d+$/.test(value)) {
+                    handleInputChange("openingDuration", value);
+                  }
+                }}
+                className="w-full"
+                min="1"
+              />
+              {formData.openingDuration && <span className="text-slate-700 font-semibold whitespace-nowrap">minutos</span>}
+            </div>
             <Textarea
               placeholder="¿Qué hace el docente?"
               value={formData.openingTeacherRole}
@@ -495,12 +546,22 @@ export default function Creator() {
 
           <div className="border-t-2 border-green-200 pt-6">
             <h3 className="text-lg font-bold text-gray-900 mb-4">② Desarrollo / Construcción</h3>
-            <Input
-              placeholder="Duración (Ej: 35–50 min)"
-              value={formData.developmentDuration}
-              onChange={(e) => handleInputChange("developmentDuration", e.target.value)}
-              className="w-full mb-4"
-            />
+            <div className="flex items-center gap-2 mb-4">
+              <Input
+                type="number"
+                placeholder="Duración *"
+                value={formData.developmentDuration}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "" || /^\d+$/.test(value)) {
+                    handleInputChange("developmentDuration", value);
+                  }
+                }}
+                className="w-full"
+                min="1"
+              />
+              {formData.developmentDuration && <span className="text-slate-700 font-semibold whitespace-nowrap">minutos</span>}
+            </div>
             <Textarea
               placeholder="¿Qué hace el docente?"
               value={formData.developmentTeacherRole}
@@ -517,12 +578,22 @@ export default function Creator() {
 
           <div className="border-t-2 border-orange-200 pt-6">
             <h3 className="text-lg font-bold text-gray-900 mb-4">③ Cierre / Evaluación</h3>
-            <Input
-              placeholder="Duración (Ej: 10–15 min)"
-              value={formData.closingDuration}
-              onChange={(e) => handleInputChange("closingDuration", e.target.value)}
-              className="w-full mb-4"
-            />
+            <div className="flex items-center gap-2 mb-4">
+              <Input
+                type="number"
+                placeholder="Duración *"
+                value={formData.closingDuration}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "" || /^\d+$/.test(value)) {
+                    handleInputChange("closingDuration", value);
+                  }
+                }}
+                className="w-full"
+                min="1"
+              />
+              {formData.closingDuration && <span className="text-slate-700 font-semibold whitespace-nowrap">minutos</span>}
+            </div>
             <Textarea
               placeholder="¿Qué hace el docente?"
               value={formData.closingTeacherRole}
@@ -589,6 +660,12 @@ export default function Creator() {
         </div>
 
         {/* Content Card */}
+        <div className="mb-6 p-4 bg-blue-50 border-l-4 border-blue-600 rounded">
+          <p className="text-sm text-slate-700">
+            <span className="font-semibold">Nota:</span> Los campos marcados con <span className="text-red-600 font-bold">*</span> son obligatorios.
+          </p>
+        </div>
+
         <Card className="p-10 mb-10 border-2 border-slate-200 shadow-lg bg-white">
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-slate-900 mb-2">

@@ -3,11 +3,12 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Search, Download, Edit, Plus, BookOpen, Lightbulb, Zap } from "lucide-react";
+import { ArrowRight, Search, Download, Edit, Plus, BookOpen, Lightbulb, Zap, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Welcome() {
   const [accessCode, setAccessCode] = useState("");
+  const [showAccessCode, setShowAccessCode] = useState(false);
   const [searchMode, setSearchMode] = useState<"create" | "search" | null>(null);
 
   const handleSearch = () => {
@@ -119,14 +120,27 @@ export default function Welcome() {
             </p>
             
             <div className="space-y-4">
-              <Input
-                type="password"
-                placeholder="Código de acceso"
-                value={accessCode}
-                onChange={(e) => setAccessCode(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                className="py-3 px-4 text-base border-2 border-slate-300 focus:border-blue-600"
-              />
+              <div className="relative">
+                <Input
+                  type={showAccessCode ? "text" : "password"}
+                  placeholder="Código de acceso"
+                  value={accessCode}
+                  onChange={(e) => setAccessCode(e.target.value)}
+                  onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+                  className="py-3 px-4 pr-12 text-base border-2 border-slate-300 focus:border-blue-600"
+                />
+                <button
+                  onClick={() => setShowAccessCode(!showAccessCode)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-700 transition-colors"
+                  type="button"
+                >
+                  {showAccessCode ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
               
               <div className="flex gap-3">
                 <Button
