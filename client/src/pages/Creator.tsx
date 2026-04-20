@@ -233,6 +233,7 @@ export default function Creator() {
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Objetivo de Aprendizaje (CK) *
             </label>
+            <p className="text-xs text-slate-600 mb-2">Describe qué deben aprender y ser capaces de hacer los estudiantes. Ejemplo: "Los estudiantes serán capaces de diseñar un circuito eléctrico funcional"</p>
             <Textarea
               placeholder="¿Qué deben lograr los estudiantes? Use un verbo observable de la Taxonomía de Bloom."
               value={formData.learningObjective}
@@ -244,6 +245,7 @@ export default function Creator() {
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Estrategia Pedagógica (PK) *
             </label>
+            <p className="text-xs text-slate-600 mb-2">¿Cómo enseñarás? Elige una estrategia que motive a los estudiantes. Ejemplo: ABP = los estudiantes resuelven un proyecto real</p>
             {!showCustomPedagogy ? (
               <Select 
                 value={formData.pedagogicalStrategy}

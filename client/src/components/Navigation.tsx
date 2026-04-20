@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Lightbulb, Zap, Plus } from "lucide-react";
+import { BookOpen, Lightbulb, Zap, Plus, Home } from "lucide-react";
 
 /**
  * Navigation Component
@@ -28,14 +28,18 @@ export default function Navigation() {
           </Link>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="flex items-center gap-1">
+            <Link href="/" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-2">
+              <Home className="w-4 h-4" />
+              <span className="hidden sm:inline">Inicio</span>
+            </Link>
             <Link href="/learn" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors flex items-center gap-2">
               <BookOpen className="w-4 h-4" />
-              Aprender
+              <span className="hidden sm:inline">Aprender</span>
             </Link>
             <Link href="/example" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors flex items-center gap-2">
               <Lightbulb className="w-4 h-4" />
-              Ejemplo
+              <span className="hidden sm:inline">Ejemplo</span>
             </Link>
           </div>
 
