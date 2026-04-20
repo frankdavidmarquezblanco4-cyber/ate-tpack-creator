@@ -47,18 +47,18 @@ export const exportToPDF = (data: ATEData) => {
   
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(26);
-  doc.setFont(undefined, "bold");
+  doc.setFont("Helvetica", "bold");
   doc.text("ATE-TPACK Creator", 20, 30);
   
   doc.setFontSize(10);
-  doc.setFont(undefined, "normal");
+  doc.setFont("Helvetica", "normal");
   doc.text("Diseñador de Actividades Tecnológicas Escolares", 20, 40);
 
   // Title
   yPosition = 65;
   doc.setTextColor(15, 58, 125);
   doc.setFontSize(20);
-  doc.setFont(undefined, "bold");
+  doc.setFont("Helvetica", "bold");
   doc.text(data.projectName, 20, yPosition);
   
   // Underline
