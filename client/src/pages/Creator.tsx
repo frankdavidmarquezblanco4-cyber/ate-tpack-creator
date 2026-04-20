@@ -73,17 +73,18 @@ export default function Creator() {
   const [showCustomTechCost, setShowCustomTechCost] = useState(false);
   const [showCustomDuration, setShowCustomDuration] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("ateFormData");
-    if (saved) {
-      try {
-        setFormData(JSON.parse(saved));
-        toast.success("Datos recuperados del almacenamiento local");
-      } catch (error) {
-        console.error("Error loading saved data:", error);
-      }
-    }
-  }, []);
+  // Comentado: No recuperar datos anteriores al entrar
+  // useEffect(() => {
+  //   const saved = localStorage.getItem("ateFormData");
+  //   if (saved) {
+  //     try {
+  //       setFormData(JSON.parse(saved));
+  //       toast.success("Datos recuperados del almacenamiento local");
+  //     } catch (error) {
+  //       console.error("Error loading saved data:", error);
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
