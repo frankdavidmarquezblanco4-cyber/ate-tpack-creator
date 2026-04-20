@@ -100,7 +100,66 @@ export default function Creator() {
     }));
   };
 
-  const validateStep = (stepIndex: number): { valid: boolean; missingFields: string[] } => {
+  const validateAllFields = (): { valid: boolean; missingFields: string[] } => {
+    const missing: string[] = [];
+    
+    // Paso 1
+    if (!formData.projectName.trim()) missing.push("Nombre del proyecto");
+    if (!formData.secretCode.trim()) missing.push("Código de acceso");
+    if (!formData.disciplinaryArea.trim()) missing.push("Área disciplinar");
+    if (!formData.grade.trim()) missing.push("Grado");
+    
+    // Paso 2
+    if (!formData.learningObjective.trim()) missing.push("Objetivo de aprendizaje");
+    if (!formData.pedagogicalStrategy.trim()) missing.push("Estrategia pedagógica");
+    if (!formData.strategyJustification.trim()) missing.push("Justificación de estrategia");
+    
+    // Paso 3
+    if (!formData.technology.trim()) missing.push("Tecnología");
+    if (!formData.technologyType.trim()) missing.push("Tipo de tecnología");
+    if (!formData.technologyCost.trim()) missing.push("Acceso/Costo");
+    
+    // Paso 4
+    if (!formData.totalDuration.trim()) missing.push("Duración total");
+    if (!formData.openingDuration.trim()) missing.push("Duración de Apertura");
+    if (!formData.developmentDuration.trim()) missing.push("Duración de Desarrollo");
+    if (!formData.closingDuration.trim()) missing.push("Duración de Cierre");
+    if (!formData.openingTeacherRole.trim()) missing.push("Rol del docente en Apertura");
+    if (!formData.openingStudentRole.trim()) missing.push("Rol de estudiantes en Apertura");
+    if (!formData.developmentTeacherRole.trim()) missing.push("Rol del docente en Desarrollo");
+    if (!formData.developmentStudentRole.trim()) missing.push("Rol de estudiantes en Desarrollo");
+    if (!formData.closingTeacherRole.trim()) missing.push("Rol del docente en Cierre");
+    if (!formData.closingStudentRole.trim()) missing.push("Rol de estudiantes en Cierre");
+    
+    return { valid: missing.length === 0, missingFields: missing };
+  };
+
+  const handleExport = (format: "pdf" | "word" | "pptx") => {
+    const validation = validateAllFields();
+    
+    if (!validation.valid) {
+      toast.error(`No se puede exportar. Campos faltantes: ${validation.missingFields.slice(0, 3).join(", ")}${validation.missingFields.length > 3 ? ` y ${validation.missingFields.length - 3} más` : ""}`);
+      return;
+    }
+    
+    try {
+      if (format === "pdf") {
+        exportToPDF(formData);
+        toast.success("PDF descargado exitosamente");
+      } else if (format === "word") {
+        exportToWord(formData);
+        toast.success("Documento Word descargado exitosamente");
+      } else if (format === "pptx") {
+        exportToPowerPoint(formData);
+        toast.success("Presentación PowerPoint descargada exitosamente");
+      }
+    } catch (error) {
+      toast.error("Error al exportar. Intenta de nuevo.");
+      console.error(error);
+    }
+  };
+
+    const validateStep = (stepIndex: number): { valid: boolean; missingFields: string[] } => {
     const missing: string[] = [];
     
     if (stepIndex === 0) {
