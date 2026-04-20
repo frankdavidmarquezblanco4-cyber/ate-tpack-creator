@@ -68,10 +68,10 @@ const initialData: ATEData = {
 export default function Creator() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<ATEData>(initialData);
-  const [customPedagogy, setCustomPedagogy] = useState("");
-  const [customTechType, setCustomTechType] = useState("");
-  const [customTechCost, setCustomTechCost] = useState("");
-  const [customDuration, setCustomDuration] = useState("");
+  const [showCustomPedagogy, setShowCustomPedagogy] = useState(false);
+  const [showCustomTechType, setShowCustomTechType] = useState(false);
+  const [showCustomTechCost, setShowCustomTechCost] = useState(false);
+  const [showCustomDuration, setShowCustomDuration] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("ateFormData");
@@ -208,40 +208,50 @@ export default function Creator() {
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Estrategia Pedagógica (PK) *
             </label>
-            <Select 
-              value={formData.pedagogicalStrategy === customPedagogy && customPedagogy ? "other" : formData.pedagogicalStrategy} 
-              onValueChange={(value) => {
-                if (value === "other") {
-                  handleInputChange("pedagogicalStrategy", "");
-                  setCustomPedagogy("");
-                } else {
-                  handleInputChange("pedagogicalStrategy", value);
-                  setCustomPedagogy("");
-                }
-              }}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Seleccionar estrategia…" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="abp">Aprendizaje Basado en Proyectos (ABP)</SelectItem>
-                <SelectItem value="abpr">Aprendizaje Basado en Problemas</SelectItem>
-                <SelectItem value="flipped">Aula Invertida (Flipped Classroom)</SelectItem>
-                <SelectItem value="gamification">Gamificación</SelectItem>
-                <SelectItem value="other">Otro (especificar)</SelectItem>
-              </SelectContent>
-            </Select>
-            {(formData.pedagogicalStrategy === "" && customPedagogy) || (formData.pedagogicalStrategy && !["abp", "abpr", "flipped", "gamification"].includes(formData.pedagogicalStrategy)) ? (
-              <Input
-                placeholder="Describe tu estrategia pedagógica personalizada"
+            {!showCustomPedagogy ? (
+              <Select 
                 value={formData.pedagogicalStrategy}
-                onChange={(e) => {
-                  handleInputChange("pedagogicalStrategy", e.target.value);
-                  setCustomPedagogy(e.target.value);
+                onValueChange={(value) => {
+                  if (value === "other") {
+                    setShowCustomPedagogy(true);
+                    handleInputChange("pedagogicalStrategy", "");
+                  } else {
+                    handleInputChange("pedagogicalStrategy", value);
+                  }
                 }}
-                className="w-full"
-              />
-            ) : null}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Seleccionar estrategia…" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="abp">Aprendizaje Basado en Proyectos (ABP)</SelectItem>
+                  <SelectItem value="abpr">Aprendizaje Basado en Problemas</SelectItem>
+                  <SelectItem value="flipped">Aula Invertida (Flipped Classroom)</SelectItem>
+                  <SelectItem value="gamification">Gamificación</SelectItem>
+                  <SelectItem value="other">Otro (especificar)</SelectItem>
+                </SelectContent>
+              </Select>
+            ) : (
+              <div className="space-y-2">
+                <Input
+                  placeholder="Escribe tu estrategia pedagógica personalizada"
+                  value={formData.pedagogicalStrategy}
+                  onChange={(e) => handleInputChange("pedagogicalStrategy", e.target.value)}
+                  className="w-full"
+                  autoFocus
+                />
+                <Button
+                  onClick={() => {
+                    setShowCustomPedagogy(false);
+                    handleInputChange("pedagogicalStrategy", "");
+                  }}
+                  variant="outline"
+                  size="sm"
+                >
+                  Volver a opciones predefinidas
+                </Button>
+              </div>
+            )}
           </div>
           <div>
             <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -278,77 +288,97 @@ export default function Creator() {
               <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Tipo de Tecnología
               </label>
-              <Select 
-                value={formData.technologyType === customTechType && customTechType ? "other" : formData.technologyType} 
-                onValueChange={(value) => {
-                  if (value === "other") {
-                    handleInputChange("technologyType", "");
-                    setCustomTechType("");
-                  } else {
-                    handleInputChange("technologyType", value);
-                    setCustomTechType("");
-                  }
-                }}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Seleccionar…" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="mobile">App móvil</SelectItem>
-                  <SelectItem value="web">Plataforma web</SelectItem>
-                  <SelectItem value="physical">Dispositivo físico</SelectItem>
-                  <SelectItem value="other">Otro</SelectItem>
-                </SelectContent>
-              </Select>
-              {(formData.technologyType === "" && customTechType) || (formData.technologyType && !["mobile", "web", "physical"].includes(formData.technologyType)) ? (
-                <Input
-                  placeholder="Especifica el tipo de tecnología"
+              {!showCustomTechType ? (
+                <Select 
                   value={formData.technologyType}
-                  onChange={(e) => {
-                    handleInputChange("technologyType", e.target.value);
-                    setCustomTechType(e.target.value);
+                  onValueChange={(value) => {
+                    if (value === "other") {
+                      setShowCustomTechType(true);
+                      handleInputChange("technologyType", "");
+                    } else {
+                      handleInputChange("technologyType", value);
+                    }
                   }}
-                  className="w-full"
-                />
-              ) : null}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Seleccionar…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="mobile">App móvil</SelectItem>
+                    <SelectItem value="web">Plataforma web</SelectItem>
+                    <SelectItem value="physical">Dispositivo físico</SelectItem>
+                    <SelectItem value="other">Otro</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <div className="space-y-2">
+                  <Input
+                    placeholder="Escribe el tipo de tecnología"
+                    value={formData.technologyType}
+                    onChange={(e) => handleInputChange("technologyType", e.target.value)}
+                    className="w-full"
+                    autoFocus
+                  />
+                  <Button
+                    onClick={() => {
+                      setShowCustomTechType(false);
+                      handleInputChange("technologyType", "");
+                    }}
+                    variant="outline"
+                    size="sm"
+                  >
+                    Volver a opciones
+                  </Button>
+                </div>
+              )}
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Acceso / Costo
               </label>
-              <Select 
-                value={formData.technologyCost === customTechCost && customTechCost ? "other" : formData.technologyCost} 
-                onValueChange={(value) => {
-                  if (value === "other") {
-                    handleInputChange("technologyCost", "");
-                    setCustomTechCost("");
-                  } else {
-                    handleInputChange("technologyCost", value);
-                    setCustomTechCost("");
-                  }
-                }}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Seleccionar…" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="free">Gratuita</SelectItem>
-                  <SelectItem value="freemium">Freemium</SelectItem>
-                  <SelectItem value="paid">Paga – licencia institucional</SelectItem>
-                  <SelectItem value="other">Otro</SelectItem>
-                </SelectContent>
-              </Select>
-              {(formData.technologyCost === "" && customTechCost) || (formData.technologyCost && !["free", "freemium", "paid"].includes(formData.technologyCost)) ? (
-                <Input
-                  placeholder="Especifica el tipo de acceso/costo"
+              {!showCustomTechCost ? (
+                <Select 
                   value={formData.technologyCost}
-                  onChange={(e) => {
-                    handleInputChange("technologyCost", e.target.value);
-                    setCustomTechCost(e.target.value);
+                  onValueChange={(value) => {
+                    if (value === "other") {
+                      setShowCustomTechCost(true);
+                      handleInputChange("technologyCost", "");
+                    } else {
+                      handleInputChange("technologyCost", value);
+                    }
                   }}
-                  className="w-full"
-                />
-              ) : null}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Seleccionar…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="free">Gratuita</SelectItem>
+                    <SelectItem value="freemium">Freemium</SelectItem>
+                    <SelectItem value="paid">Paga – licencia institucional</SelectItem>
+                    <SelectItem value="other">Otro</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <div className="space-y-2">
+                  <Input
+                    placeholder="Escribe el tipo de acceso/costo"
+                    value={formData.technologyCost}
+                    onChange={(e) => handleInputChange("technologyCost", e.target.value)}
+                    className="w-full"
+                    autoFocus
+                  />
+                  <Button
+                    onClick={() => {
+                      setShowCustomTechCost(false);
+                      handleInputChange("technologyCost", "");
+                    }}
+                    variant="outline"
+                    size="sm"
+                  >
+                    Volver a opciones
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           <div>
@@ -385,29 +415,29 @@ export default function Creator() {
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Duración Total de la Lección *
             </label>
-            <Select 
-              value={formData.totalDuration === customDuration && customDuration ? "other" : formData.totalDuration} 
-              onValueChange={(value) => {
-                if (value === "other") {
-                  handleInputChange("totalDuration", "");
-                  setCustomDuration("");
-                } else {
-                  handleInputChange("totalDuration", value);
-                  setCustomDuration("");
-                }
-              }}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Seleccionar…" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="60">60 minutos</SelectItem>
-                <SelectItem value="75">75 minutos</SelectItem>
-                <SelectItem value="90">90 minutos</SelectItem>
-                <SelectItem value="other">Otra duración</SelectItem>
-              </SelectContent>
-            </Select>
-            {(formData.totalDuration === "" && customDuration) || (formData.totalDuration && !["60", "75", "90"].includes(formData.totalDuration)) ? (
+            {!showCustomDuration ? (
+              <Select 
+                value={formData.totalDuration}
+                onValueChange={(value) => {
+                  if (value === "other") {
+                    setShowCustomDuration(true);
+                    handleInputChange("totalDuration", "");
+                  } else {
+                    handleInputChange("totalDuration", value);
+                  }
+                }}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Seleccionar…" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="60">60 minutos</SelectItem>
+                  <SelectItem value="75">75 minutos</SelectItem>
+                  <SelectItem value="90">90 minutos</SelectItem>
+                  <SelectItem value="other">Otra duración</SelectItem>
+                </SelectContent>
+              </Select>
+            ) : (
               <div className="space-y-2">
                 <Input
                   type="number"
@@ -417,17 +447,27 @@ export default function Creator() {
                     const value = e.target.value;
                     if (value === "" || /^\d+$/.test(value)) {
                       handleInputChange("totalDuration", value);
-                      setCustomDuration(value);
                     }
                   }}
                   className="w-full"
                   min="1"
+                  autoFocus
                 />
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 mb-2">
                   Solo se aceptan valores numéricos. Ejemplo: 45, 120, 180
                 </p>
+                <Button
+                  onClick={() => {
+                    setShowCustomDuration(false);
+                    handleInputChange("totalDuration", "");
+                  }}
+                  variant="outline"
+                  size="sm"
+                >
+                  Volver a opciones predefinidas
+                </Button>
               </div>
-            ) : null}
+            )}
           </div>
 
           <div className="border-t-2 border-blue-200 pt-6">
