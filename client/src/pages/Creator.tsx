@@ -90,7 +90,8 @@ export default function Creator() {
     const timer = setTimeout(() => {
       localStorage.setItem("ateFormData", JSON.stringify(formData));
     }, 1000);
-    return () => clearTimeout(timer);
+    return (
+    // Nuevo diseño profesional) => clearTimeout(timer);
   }, [formData]);
 
   const handleInputChange = (field: string, value: string) => {
@@ -546,40 +547,60 @@ export default function Creator() {
   const isLastStep = currentStep === steps.length - 1;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-orange-50 py-12 px-4 sm:px-6 lg:px-8">
+    // Nuevo diseño profesional
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-8 flex items-center gap-3">
-          <Link href="/">
-            <Button variant="outline" className="gap-2">
-              ← Inicio
-            </Button>
-          </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Crear ATE</h1>
+        {/* Header */}
+        <div className="mb-10 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/">
+              <Button variant="outline" className="gap-2 border-2 border-slate-300 hover:border-blue-600 hover:bg-blue-50 px-4 py-2">
+                ← Volver
+              </Button>
+            </Link>
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900">Crear ATE</h1>
+              <p className="text-slate-600 text-sm">Diseña tu Actividad Tecnológica Escolar</p>
+            </div>
+          </div>
         </div>
 
-        <div className="mb-8">
-          <div className="flex justify-between mb-4">
+        {/* Progress Bar */}
+        <div className="mb-10">
+          <div className="flex justify-between gap-2 mb-4">
             {steps.map((step, idx) => (
-              <div key={idx} className="flex-1 mr-2">
+              <div key={idx} className="flex-1">
                 <div
-                  className={`h-2 rounded-full transition-all ${
-                    idx <= currentStep ? "bg-blue-600" : "bg-gray-300"
+                  className={`h-3 rounded-full transition-all ${
+                    idx <= currentStep 
+                      ? "bg-gradient-to-r from-blue-600 to-blue-700" 
+                      : "bg-slate-200"
                   }`}
                 />
               </div>
             ))}
           </div>
-          <p className="text-sm text-gray-600 text-center">
-            Paso {currentStep + 1} de {steps.length}
-          </p>
+          <div className="flex justify-between items-center">
+            <p className="text-sm font-semibold text-slate-700">
+              Paso {currentStep + 1} de {steps.length}
+            </p>
+            <p className="text-sm text-slate-600">
+              {currentStepData.title}
+            </p>
+          </div>
         </div>
 
-        <Card className="p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            {currentStepData.title}
-          </h2>
-          <p className="text-gray-600 mb-8">{currentStepData.description}</p>
-          {currentStepData.content}
+        {/* Content Card */}
+        <Card className="p-10 mb-10 border-2 border-slate-200 shadow-lg bg-white">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-2">
+              {currentStepData.title}
+            </h2>
+            <p className="text-slate-600 text-base font-medium">{currentStepData.description}</p>
+          </div>
+          <div className="border-t border-slate-200 pt-8">
+            {currentStepData.content}
+          </div>
         </Card>
 
         <div className="flex justify-between gap-4">
