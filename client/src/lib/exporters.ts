@@ -36,18 +36,35 @@ export const exportToPDF = (data: ATEData) => {
   const pageHeight = doc.internal.pageSize.getHeight();
   let yPosition = 20;
 
-  // Header
-  doc.setFillColor(30, 64, 175); // Blue
-  doc.rect(0, 0, pageWidth, 40, "F");
+  // Header with professional styling
+  doc.setFillColor(15, 58, 125); // Dark Blue
+  doc.rect(0, 0, pageWidth, 50, "F");
+  
+  // Decorative line
+  doc.setDrawColor(30, 64, 175);
+  doc.setLineWidth(3);
+  doc.line(0, 50, pageWidth, 50);
+  
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(24);
-  doc.text("ATE-TPACK Creator", 20, 25);
+  doc.setFontSize(26);
+  doc.setFont(undefined, "bold");
+  doc.text("ATE-TPACK Creator", 20, 30);
+  
+  doc.setFontSize(10);
+  doc.setFont(undefined, "normal");
+  doc.text("Diseñador de Actividades Tecnológicas Escolares", 20, 40);
 
   // Title
-  doc.setTextColor(30, 64, 175);
-  doc.setFontSize(18);
-  yPosition = 60;
+  yPosition = 65;
+  doc.setTextColor(15, 58, 125);
+  doc.setFontSize(20);
+  doc.setFont(undefined, "bold");
   doc.text(data.projectName, 20, yPosition);
+  
+  // Underline
+  doc.setDrawColor(30, 64, 175);
+  doc.setLineWidth(1);
+  doc.line(20, yPosition + 2, 100, yPosition + 2);
 
   // General Info
   doc.setFontSize(12);
@@ -356,24 +373,37 @@ export const exportToPowerPoint = (data: ATEData) => {
     italic: true,
   });
 
-  // Slide 2: Problem
+  // Slide 2: Problem with professional styling
   slide = prs.addSlide();
+  slide.background = { color: "F8FAFC" };
+  
+  // Decorative header bar
+  slide.addShape(prs.ShapeType.rect, {
+    x: 0,
+    y: 0,
+    w: 10,
+    h: 0.8,
+    fill: { color: "1E40AF" },
+  });
+  
   slide.addText("Situación Problema", {
     x: 0.5,
-    y: 0.5,
+    y: 0.15,
     w: 9,
     h: 0.5,
     fontSize: 32,
     bold: true,
-    color: "1E40AF",
+    color: "FFFFFF",
   });
+  
   slide.addText(data.learningObjective, {
     x: 0.5,
     y: 1.5,
     w: 9,
-    h: 4,
+    h: 4.5,
     fontSize: 18,
-    color: "000000",
+    color: "1E293B",
+    align: "left",
   });
 
   // Slide 3: Objectives

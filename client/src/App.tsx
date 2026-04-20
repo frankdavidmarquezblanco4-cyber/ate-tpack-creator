@@ -10,6 +10,7 @@ import Learn from "./pages/Learn";
 import Example from "./pages/Example";
 import Creator from "./pages/Creator";
 import Navigation from "./components/Navigation";
+import VirtualAssistant from "./components/VirtualAssistant";
 
 
 function Router() {
@@ -38,6 +39,7 @@ function App() {
             <main>
               <Router />
             </main>
+            <VirtualAssistant />
           </div>
         </TooltipProvider>
       </ThemeProvider>
