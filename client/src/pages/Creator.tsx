@@ -159,7 +159,7 @@ export default function Creator() {
     if (!formData.technologyCost.trim()) missing.push("Acceso/Costo");
     
     // Paso 4
-    if (!formData.totalDuration.trim()) missing.push("Duración total");
+    if (!formData.openingDuration.trim() || !formData.developmentDuration.trim() || !formData.closingDuration.trim()) missing.push("Duración total");
     if (!formData.openingDuration.trim()) missing.push("Duración de Apertura");
     if (!formData.developmentDuration.trim()) missing.push("Duración de Desarrollo");
     if (!formData.closingDuration.trim()) missing.push("Duración de Cierre");
@@ -215,7 +215,7 @@ export default function Creator() {
       if (!formData.technologyType.trim()) missing.push("Tipo de tecnología");
       if (!formData.technologyCost.trim()) missing.push("Acceso/Costo");
     } else if (stepIndex === 3) {
-      if (!formData.totalDuration.trim()) missing.push("Duración total");
+      if (!formData.openingDuration.trim() || !formData.developmentDuration.trim() || !formData.closingDuration.trim()) missing.push("Duración total");
       if (!formData.openingDuration.trim()) missing.push("Duración de Apertura");
       if (!formData.developmentDuration.trim()) missing.push("Duración de Desarrollo");
       if (!formData.closingDuration.trim()) missing.push("Duración de Cierre");
@@ -636,17 +636,65 @@ export default function Creator() {
                   Duración (minutos) *
                 </label>
                 <div className="flex gap-2">
-                  <Input
-                    type="number"
-                    placeholder="Ingresa minutos"
-                    value={formData.developmentDuration}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/[^0-9]/g, "");
-                      handleInputChange("developmentDuration", value);
-                    }}
-                    className="flex-1"
-                  />
-                  <span className="flex items-center text-gray-600 font-semibold">minutos</span>
+                  {!showCustomDuration ? (
+                    <Select value={formData.developmentDuration} onValueChange={(value) => {
+                      if (value === "otro") {
+                        setShowCustomDuration(true);
+                        handleInputChange("developmentDuration", "");
+                      } else {
+                        handleInputChange("developmentDuration", value);
+                      }
+                    }}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecciona duración" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="5">5 minutos</SelectItem>
+                        <SelectItem value="10">10 minutos</SelectItem>
+                        <SelectItem value="15">15 minutos</SelectItem>
+                        <SelectItem value="20">20 minutos</SelectItem>
+                        <SelectItem value="25">25 minutos</SelectItem>
+                        <SelectItem value="30">30 minutos</SelectItem>
+                        <SelectItem value="35">35 minutos</SelectItem>
+                        <SelectItem value="40">40 minutos</SelectItem>
+                        <SelectItem value="45">45 minutos</SelectItem>
+                        <SelectItem value="50">50 minutos</SelectItem>
+                        <SelectItem value="55">55 minutos</SelectItem>
+                        <SelectItem value="60">60 minutos</SelectItem>
+                        <SelectItem value="65">65 minutos</SelectItem>
+                        <SelectItem value="70">70 minutos</SelectItem>
+                        <SelectItem value="75">75 minutos</SelectItem>
+                        <SelectItem value="80">80 minutos</SelectItem>
+                        <SelectItem value="85">85 minutos</SelectItem>
+                        <SelectItem value="90">90 minutos</SelectItem>
+                        <SelectItem value="otro">Otra duración</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <div className="flex gap-2 flex-1">
+                      <Input
+                        type="number"
+                        placeholder="Ingresa minutos"
+                        value={formData.developmentDuration}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/[^0-9]/g, "");
+                          handleInputChange("developmentDuration", value);
+                        }}
+                        className="flex-1"
+                      />
+                      <span className="flex items-center text-gray-600 font-semibold">minutos</span>
+                      <Button
+                        onClick={() => {
+                          setShowCustomDuration(false);
+                          handleInputChange("developmentDuration", "");
+                        }}
+                        variant="outline"
+                        size="sm"
+                      >
+                        Volver
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
               <div>
@@ -683,17 +731,65 @@ export default function Creator() {
                   Duración (minutos) *
                 </label>
                 <div className="flex gap-2">
-                  <Input
-                    type="number"
-                    placeholder="Ingresa minutos"
-                    value={formData.closingDuration}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/[^0-9]/g, "");
-                      handleInputChange("closingDuration", value);
-                    }}
-                    className="flex-1"
-                  />
-                  <span className="flex items-center text-gray-600 font-semibold">minutos</span>
+                  {!showCustomDuration ? (
+                    <Select value={formData.closingDuration} onValueChange={(value) => {
+                      if (value === "otro") {
+                        setShowCustomDuration(true);
+                        handleInputChange("closingDuration", "");
+                      } else {
+                        handleInputChange("closingDuration", value);
+                      }
+                    }}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecciona duración" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="5">5 minutos</SelectItem>
+                        <SelectItem value="10">10 minutos</SelectItem>
+                        <SelectItem value="15">15 minutos</SelectItem>
+                        <SelectItem value="20">20 minutos</SelectItem>
+                        <SelectItem value="25">25 minutos</SelectItem>
+                        <SelectItem value="30">30 minutos</SelectItem>
+                        <SelectItem value="35">35 minutos</SelectItem>
+                        <SelectItem value="40">40 minutos</SelectItem>
+                        <SelectItem value="45">45 minutos</SelectItem>
+                        <SelectItem value="50">50 minutos</SelectItem>
+                        <SelectItem value="55">55 minutos</SelectItem>
+                        <SelectItem value="60">60 minutos</SelectItem>
+                        <SelectItem value="65">65 minutos</SelectItem>
+                        <SelectItem value="70">70 minutos</SelectItem>
+                        <SelectItem value="75">75 minutos</SelectItem>
+                        <SelectItem value="80">80 minutos</SelectItem>
+                        <SelectItem value="85">85 minutos</SelectItem>
+                        <SelectItem value="90">90 minutos</SelectItem>
+                        <SelectItem value="otro">Otra duración</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <div className="flex gap-2 flex-1">
+                      <Input
+                        type="number"
+                        placeholder="Ingresa minutos"
+                        value={formData.closingDuration}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/[^0-9]/g, "");
+                          handleInputChange("closingDuration", value);
+                        }}
+                        className="flex-1"
+                      />
+                      <span className="flex items-center text-gray-600 font-semibold">minutos</span>
+                      <Button
+                        onClick={() => {
+                          setShowCustomDuration(false);
+                          handleInputChange("closingDuration", "");
+                        }}
+                        variant="outline"
+                        size="sm"
+                      >
+                        Volver
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
               <div>
@@ -726,20 +822,18 @@ export default function Creator() {
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Duración Total de la Lección (minutos) *
             </label>
-            <div className="flex gap-2">
-              <Input
-                type="number"
-                placeholder="Ingresa minutos totales"
-                value={formData.totalDuration}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/[^0-9]/g, "");
-                  handleInputChange("totalDuration", value);
-                }}
-                className="flex-1"
-              />
-              <span className="flex items-center text-gray-600 font-semibold">minutos</span>
+            <div className="flex gap-2 items-center">
+              <div className="flex-1 p-3 bg-white border-2 border-purple-300 rounded-md text-lg font-bold text-purple-600">
+                {(() => {
+                  const opening = parseInt(formData.openingDuration) || 0;
+                  const development = parseInt(formData.developmentDuration) || 0;
+                  const closing = parseInt(formData.closingDuration) || 0;
+                  const total = opening + development + closing;
+                  return total > 0 ? `${total} minutos` : "Completa los tiempos arriba";
+                })()}
+              </div>
             </div>
-            <p className="text-xs text-gray-600 mt-2">Solo se aceptan valores numéricos. Ejemplo: 45, 90, 120</p>
+            <p className="text-xs text-gray-600 mt-2">⚠️ La duración total se calcula automáticamente sumando: Apertura + Desarrollo + Cierre</p>
           </div>
         </div>
       ),

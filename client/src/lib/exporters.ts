@@ -60,7 +60,7 @@ export const exportToPDF = (data: ATEData) => {
     doc.setFont("Helvetica", isBold ? "bold" : "normal");
     const lines = doc.splitTextToSize(text, maxWidth);
     doc.text(lines, x, y);
-    return y + (lines.length * fontSize * 0.35);
+    return y + (lines.length * fontSize * 0.5) + 3;
   };
 
   // Header
