@@ -509,8 +509,8 @@ export default function Creator() {
       content: (
         <div className="space-y-8">
           {/* APERTURA */}
-          <div className="border-l-4 border-blue-600 pl-4">
-            <h3 className="text-lg font-bold text-blue-600 mb-4">Apertura / Enganche</h3>
+          <div className="border-l-4 border-green-600 pl-4">
+            <h3 className="text-lg font-bold text-green-600 mb-4">Apertura / Enganche</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -590,8 +590,8 @@ export default function Creator() {
           </div>
 
           {/* DESARROLLO */}
-          <div className="border-l-4 border-green-600 pl-4">
-            <h3 className="text-lg font-bold text-green-600 mb-4">Desarrollo / Construcción</h3>
+          <div className="border-l-4 border-pink-600 pl-4">
+            <h3 className="text-lg font-bold text-pink-600 mb-4">Desarrollo / Construcción</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -637,8 +637,8 @@ export default function Creator() {
           </div>
 
           {/* CIERRE */}
-          <div className="border-l-4 border-orange-600 pl-4">
-            <h3 className="text-lg font-bold text-orange-600 mb-4">Cierre / Consolidación</h3>
+          <div className="border-l-4 border-purple-600 pl-4">
+            <h3 className="text-lg font-bold text-purple-600 mb-4">Cierre / Consolidación</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -684,7 +684,7 @@ export default function Creator() {
           </div>
 
           {/* DURACIÓN TOTAL */}
-          <div className="bg-blue-50 border-2 border-blue-200 p-4 rounded-lg">
+          <div className="bg-purple-50 border-2 border-purple-200 p-4 rounded-lg">
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Duración Total de la Lección (minutos) *
             </label>
@@ -712,12 +712,12 @@ export default function Creator() {
   const currentStepData = steps[currentStep];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-blue-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-pink-50 to-purple-50">
       {/* Navigation Bar */}
-      <div className="sticky top-0 z-40 bg-white border-b-2 border-blue-200 shadow-md">
+      <div className="sticky top-0 z-40 bg-white border-b-2 border-purple-200 shadow-md">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/">
-            <button className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors">
+            <button className="flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold transition-colors">
               <Home className="w-5 h-5" />
               Inicio
             </button>
@@ -734,7 +734,7 @@ export default function Creator() {
           <div className="flex justify-between mb-4">
             {steps.map((step, index) => (
               <div key={index} className="flex-1">
-                <div className={`h-2 rounded-full transition-all ${index <= currentStep ? "bg-gradient-to-r from-blue-600 to-blue-500" : "bg-gray-300"}`} />
+                <div className={`h-2 rounded-full transition-all ${index <= currentStep ? "bg-gradient-to-r from-green-600 to-pink-500" : "bg-gray-300"}`} />
               </div>
             ))}
           </div>
@@ -744,7 +744,7 @@ export default function Creator() {
         </div>
 
         {/* Step Content */}
-        <Card className="p-8 border-2 border-blue-200 shadow-lg bg-white">
+        <Card className="p-8 border-2 border-purple-200 shadow-lg bg-white">
           <h2 className="text-3xl font-bold text-slate-900 mb-2">{currentStepData.title}</h2>
           <p className="text-gray-600 mb-8">{currentStepData.description}</p>
           
@@ -776,7 +776,7 @@ export default function Creator() {
             <button
               onClick={handleNextStep}
               disabled={isLastStep}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               Siguiente
               <ArrowRight className="w-4 h-4" />
@@ -786,9 +786,9 @@ export default function Creator() {
 
         {/* Export Section - Last Step */}
         {isLastStep && (
-          <Card className="mt-8 p-8 border-2 border-green-200 shadow-lg bg-green-50">
-            <h3 className="text-2xl font-bold text-green-900 mb-6">Exportar tu ATE</h3>
-            <p className="text-green-800 mb-6">Descarga tu Actividad Tecnológica Escolar en el formato que prefieras:</p>
+          <Card className="mt-8 p-8 border-2 border-pink-200 shadow-lg bg-pink-50">
+            <h3 className="text-2xl font-bold text-pink-900 mb-6">Exportar tu ATE</h3>
+            <p className="text-pink-800 mb-6">Descarga tu Actividad Tecnológica Escolar en el formato que prefieras:</p>
             
             <div className="grid md:grid-cols-3 gap-4">
               <button

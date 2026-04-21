@@ -43,82 +43,82 @@
 }
 
 :root {
-  /* Professional TPACK Color Palette */
-  --color-ck-blue: #0f5a8e;        /* Content Knowledge - Deep Blue */
-  --color-pk-green: #1b7d4a;       /* Pedagogical Knowledge - Deep Green */
-  --color-tk-orange: #c85a1a;      /* Technological Knowledge - Deep Orange */
-  --color-ck-light: #e8f3f8;       /* Light Blue */
-  --color-pk-light: #e8f5e9;       /* Light Green */
-  --color-tk-light: #fff3e0;       /* Light Orange */
+  /* New TPACK Color Palette: Green, Pink, Purple */
+  --color-green-primary: #059669;      /* Emerald Green - PK */
+  --color-pink-primary: #ec4899;       /* Rose Pink - TK */
+  --color-purple-primary: #a78bfa;     /* Soft Purple - CK */
+  --color-green-light: #d1fae5;        /* Light Green */
+  --color-pink-light: #fbcfe8;         /* Light Pink */
+  --color-purple-light: #ede9fe;       /* Light Purple */
   
-  --primary: #0f5a8e;              /* CK Deep Blue */
+  --primary: #059669;                  /* Green */
   --primary-foreground: #ffffff;
-  --sidebar-primary: #0f5a8e;
+  --sidebar-primary: #ec4899;          /* Pink */
   --sidebar-primary-foreground: #ffffff;
-  --chart-1: #1b7d4a;              /* PK Deep Green */
-  --chart-2: #c85a1a;              /* TK Deep Orange */
-  --chart-3: #0f5a8e;              /* CK Deep Blue */
-  --chart-4: #6b4fa1;              /* Purple for Didactic Sequence */
-  --chart-5: #0891b2;              /* Teal for Evaluation */
-  --radius: 0.5rem;
-  --background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-  --foreground: #1a202c;
-  --card: #ffffff; /* Cards remain white for contrast */
-  --card-foreground: #1a202c;
+  --chart-1: #059669;                  /* Green */
+  --chart-2: #ec4899;                  /* Pink */
+  --chart-3: #a78bfa;                  /* Purple */
+  --chart-4: #10b981;                  /* Light Green */
+  --chart-5: #f472b6;                  /* Light Pink */
+  --radius: 0.65rem;
+  --background: linear-gradient(135deg, #f0fdf4 0%, #fce7f3 50%, #f3e8ff 100%);
+  --foreground: #1f2937;
+  --card: #ffffff;
+  --card-foreground: #1f2937;
   --popover: #ffffff;
-  --popover-foreground: #1a202c;
-  --secondary: #1b7d4a;            /* PK Deep Green */
+  --popover-foreground: #1f2937;
+  --secondary: #ec4899;                /* Pink */
   --secondary-foreground: #ffffff;
-  --muted: #e2e8f0;
-  --muted-foreground: #64748b;
-  --accent: #c85a1a;               /* TK Deep Orange */
+  --muted: #e5e7eb;
+  --muted-foreground: #6b7280;
+  --accent: #a78bfa;                   /* Purple */
   --accent-foreground: #ffffff;
-  --destructive: #dc2626;
+  --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #cbd5e1;
-  --input: #f1f5f9;
-  --ring: #0f5a8e;
+  --border: #e5d4f1;
+  --input: #f3e8ff;
+  --ring: #a78bfa;
   --sidebar: #ffffff;
-  --sidebar-foreground: #1a202c;
-  --sidebar-accent: #e8f3f8;
-  --sidebar-accent-foreground: #0f5a8e;
-  --sidebar-border: #cbd5e1;
-  --sidebar-ring: #0f5a8e;
+  --sidebar-foreground: #1f2937;
+  --sidebar-accent: #fbcfe8;
+  --sidebar-accent-foreground: #ec4899;
+  --sidebar-border: #e5d4f1;
+  --sidebar-ring: #a78bfa;
 }
 
 .dark {
-  --primary: #1e40af;
-  --primary-foreground: #f0f9ff;
-  --sidebar-primary: #1e40af;
-  --sidebar-primary-foreground: #f0f9ff;
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: #16a34a;
-  --chart-2: #ea580c;
-  --chart-3: #1e40af;
-  --chart-4: #7c3aed;
-  --chart-5: #06b6d4;
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  --primary: #10b981;
+  --primary-foreground: #f0fdf4;
+  --sidebar-primary: #f472b6;
+  --sidebar-primary-foreground: #fce7f3;
+  --background: linear-gradient(135deg, #064e3b 0%, #831843 50%, #4c1d95 100%);
+  --foreground: #f3f4f6;
+  --card: #1f2937;
+  --card-foreground: #f3f4f6;
+  --popover: #1f2937;
+  --popover-foreground: #f3f4f6;
+  --secondary: #f472b6;
+  --secondary-foreground: #1f2937;
+  --muted: #374151;
+  --muted-foreground: #d1d5db;
+  --accent: #c084fc;
+  --accent-foreground: #1f2937;
+  --destructive: #f87171;
+  --destructive-foreground: #1f2937;
+  --border: #4c1d95;
+  --input: #6b21a8;
+  --ring: #c084fc;
+  --chart-1: #10b981;
+  --chart-2: #f472b6;
+  --chart-3: #c084fc;
+  --chart-4: #34d399;
+  --chart-5: #f0abfc;
+  --sidebar: #111827;
+  --sidebar-foreground: #f3f4f6;
+  --sidebar-accent: #6b21a8;
+  --sidebar-accent-foreground: #f0abfc;
+  --sidebar-border: #4c1d95;
+  --sidebar-ring: #c084fc;
 }
 
 @layer base {
@@ -126,32 +126,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
-    background-attachment: fixed;
-    @apply text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-  }
-  h1 {
-    @apply text-4xl font-bold tracking-tight text-slate-900 leading-tight;
-  }
-  h2 {
-    @apply text-3xl font-bold tracking-tight text-slate-900 leading-tight;
-  }
-  h3 {
-    @apply text-2xl font-semibold text-slate-800 leading-snug;
-  }
-  h4 {
-    @apply text-xl font-semibold text-slate-800;
-  }
-  p {
-    @apply text-base leading-relaxed text-slate-700;
-  }
-  label {
-    @apply text-sm font-semibold text-slate-800;
+    @apply bg-background text-foreground;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -167,64 +142,66 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
-
-@layer components {
-  .card-professional {
-    @apply bg-white rounded-xl shadow-lg border border-blue-100 hover:shadow-xl transition-shadow;
-  }
-  
-  .gradient-blue-bg {
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
-    background-attachment: fixed;
-  }
-  
-  .btn-primary-professional {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all;
-  }
-  
-  .input-professional {
-    @apply border-2 border-blue-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-300 rounded-lg;
-  }
-}
-
 
   .flex {
     min-height: 0;
     min-width: 0;
   }
 
+  /* Green Button */
+  .btn-green {
+    @apply bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-lg transition-all;
+  }
+
+  /* Pink Button */
+  .btn-pink {
+    @apply bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-lg transition-all;
+  }
+
+  /* Purple Button */
+  .btn-purple {
+    @apply bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-white font-semibold rounded-lg transition-all;
+  }
+
+  /* Card with gradient border */
+  .card-gradient {
+    @apply bg-white border-2 border-transparent bg-clip-padding rounded-lg shadow-lg;
+  }
+
+  /* Green accent card */
+  .card-green {
+    @apply bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-lg;
+  }
+
+  /* Pink accent card */
+  .card-pink {
+    @apply bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200 rounded-lg;
+  }
+
+  /* Purple accent card */
+  .card-purple {
+    @apply bg-gradient-to-br from-purple-50 to-violet-50 border-2 border-purple-200 rounded-lg;
+  }
+
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
   }
 }
