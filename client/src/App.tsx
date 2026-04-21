@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Learn from "./pages/Learn";
 import Example from "./pages/Example";
 import Creator from "./pages/Creator";
+import Dashboard from "./pages/Dashboard";
 import Navigation from "./components/Navigation";
 import VirtualAssistant from "./components/VirtualAssistant";
 
@@ -21,6 +22,7 @@ function Router() {
       <Route path={"/learn"} component={Learn} />
       <Route path={"/example"} component={Example} />
       <Route path={"/creator"} component={Creator} />
+      <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
