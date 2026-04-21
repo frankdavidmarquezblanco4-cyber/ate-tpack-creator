@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download, AlertCircle, Home } from "lucide-react";
 import { toast } from "sonner";
 import { exportToPDF, exportToWord, exportToPowerPoint } from "@/lib/exporters";
+import FileUploader from "@/components/FileUploader";
 
 interface ATEData {
   projectName: string;
@@ -41,6 +42,14 @@ interface ATEData {
     technicalRequirement: string;
     urlReference: string;
   }>;
+  referenceFiles: Array<{
+    id: string;
+    name: string;
+    size: number;
+    type: string;
+    uploadedAt: string;
+    base64: string;
+  }>;
 }
 
 const initialData: ATEData = {
@@ -70,6 +79,7 @@ const initialData: ATEData = {
   closingTeacherRole: "",
   closingStudentRole: "",
   technicalResources: [],
+  referenceFiles: [],
 };
 
 export default function Creator() {
@@ -523,6 +533,23 @@ export default function Creator() {
                 </div>
               )}
             </div>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">
+              Archivos de Referencia (Opcional)
+            </label>
+            <p className="text-xs text-gray-600 mb-3">
+              Sube documentos, imágenes o referencias que apoyen tu ATE (PDF, Word, imágenes, etc.)
+            </p>
+            <FileUploader
+              onFilesChange={(files) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  referenceFiles: files,
+                }));
+              }}
+              initialFiles={formData.referenceFiles}
+            />
           </div>
         </div>
       ),
