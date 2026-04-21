@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 export default function Welcome() {
   const [accessCode, setAccessCode] = useState("");
+  const [downloadName, setDownloadName] = useState("");
   const [showAccessCode, setShowAccessCode] = useState(false);
   const [searchMode, setSearchMode] = useState<"create" | "search" | null>(null);
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
@@ -24,7 +25,8 @@ export default function Welcome() {
         const data = JSON.parse(saved);
         if (data.secretCode === accessCode) {
           toast.success("Trabajo encontrado. Cargando...");
-          window.location.href = "/creator?edit=true";
+          localStorage.setItem("isEditMode", "true");
+          window.location.href = "/creator";
         } else {
           toast.error("Código de acceso incorrecto");
         }
@@ -41,6 +43,10 @@ export default function Welcome() {
       toast.error("Por favor ingresa un código de acceso");
       return;
     }
+    if (!downloadName.trim()) {
+      toast.error("Por favor ingresa un nombre para descargar");
+      return;
+    }
 
     const saved = localStorage.getItem("ateFormData");
     if (saved) {
@@ -52,7 +58,7 @@ export default function Welcome() {
             "href",
             "data:text/json;charset=utf-8," + encodeURIComponent(saved)
           );
-          element.setAttribute("download", `${data.projectName || "ATE"}.json`);
+          element.setAttribute("download", `${downloadName}.json`);
           element.style.display = "none";
           document.body.appendChild(element);
           element.click();
@@ -194,6 +200,16 @@ export default function Welcome() {
                     <Eye className="w-5 h-5" />
                   )}
                 </button>
+              </div>
+              
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Nombre para descargar (ej: Mi_ATE_Matemáticas)"
+                  value={downloadName}
+                  onChange={(e) => setDownloadName(e.target.value)}
+                  className="py-3 px-4 text-base border-2 border-slate-300 focus:border-blue-600"
+                />
               </div>
               
               <div className="flex gap-3">

@@ -534,6 +534,20 @@ export default function Creator() {
                         <SelectItem value="10">10 minutos</SelectItem>
                         <SelectItem value="15">15 minutos</SelectItem>
                         <SelectItem value="20">20 minutos</SelectItem>
+                        <SelectItem value="25">25 minutos</SelectItem>
+                        <SelectItem value="30">30 minutos</SelectItem>
+                        <SelectItem value="35">35 minutos</SelectItem>
+                        <SelectItem value="40">40 minutos</SelectItem>
+                        <SelectItem value="45">45 minutos</SelectItem>
+                        <SelectItem value="50">50 minutos</SelectItem>
+                        <SelectItem value="55">55 minutos</SelectItem>
+                        <SelectItem value="60">60 minutos</SelectItem>
+                        <SelectItem value="65">65 minutos</SelectItem>
+                        <SelectItem value="70">70 minutos</SelectItem>
+                        <SelectItem value="75">75 minutos</SelectItem>
+                        <SelectItem value="80">80 minutos</SelectItem>
+                        <SelectItem value="85">85 minutos</SelectItem>
+                        <SelectItem value="90">90 minutos</SelectItem>
                         <SelectItem value="otro">Otra duración</SelectItem>
                       </SelectContent>
                     </Select>
