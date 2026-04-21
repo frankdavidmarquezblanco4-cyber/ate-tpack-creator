@@ -10,8 +10,8 @@ export default function Welcome() {
   const [accessCode, setAccessCode] = useState("");
   const [downloadName, setDownloadName] = useState("");
   const [showAccessCode, setShowAccessCode] = useState(false);
-  const [searchMode, setSearchMode] = useState<"create" | "search" | null>(null);
-  const [showWelcomeModal, setShowWelcomeModal] = useState(true);
+  const [searchMode, setSearchMode] = useState<"create" | "search" | null>("create");
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
   const handleSearch = () => {
     if (!accessCode.trim()) {

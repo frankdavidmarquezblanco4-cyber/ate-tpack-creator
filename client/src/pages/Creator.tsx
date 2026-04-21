@@ -15,9 +15,7 @@ interface ATEData {
   secretCode: string;
   disciplinaryArea: string;
   grade: string;
-  member1: string;
-  member2: string;
-  member3: string;
+  members: string[];
   learningObjective: string;
   pedagogicalStrategy: string;
   strategyJustification: string;
@@ -57,9 +55,7 @@ const initialData: ATEData = {
   secretCode: "",
   disciplinaryArea: "",
   grade: "",
-  member1: "",
-  member2: "",
-  member3: "",
+  members: [""],
   learningObjective: "",
   pedagogicalStrategy: "",
   strategyJustification: "",
@@ -311,37 +307,57 @@ export default function Creator() {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Miembro 1 (Opcional)
+            <label className="block text-sm font-semibold text-gray-900 mb-4">
+              Integrantes del Grupo (Opcional)
             </label>
-            <Input
-              placeholder="Nombre del primer miembro del grupo"
-              value={formData.member1}
-              onChange={(e) => handleInputChange("member1", e.target.value)}
-              className="w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Miembro 2 (Opcional)
-            </label>
-            <Input
-              placeholder="Nombre del segundo miembro del grupo"
-              value={formData.member2}
-              onChange={(e) => handleInputChange("member2", e.target.value)}
-              className="w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Miembro 3 (Opcional)
-            </label>
-            <Input
-              placeholder="Nombre del tercer miembro del grupo"
-              value={formData.member3}
-              onChange={(e) => handleInputChange("member3", e.target.value)}
-              className="w-full"
-            />
+            <div className="space-y-3">
+              {formData.members.map((member, index) => (
+                <div key={index} className="flex gap-2">
+                  <Input
+                    placeholder={`Nombre del integrante ${index + 1}`}
+                    value={member}
+                    onChange={(e) => {
+                      const newMembers = [...formData.members];
+                      newMembers[index] = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        members: newMembers,
+                      }));
+                    }}
+                    className="w-full"
+                  />
+                  {formData.members.length > 1 && (
+                    <Button
+                      onClick={() => {
+                        const newMembers = formData.members.filter((_, i) => i !== index);
+                        setFormData((prev) => ({
+                          ...prev,
+                          members: newMembers,
+                        }));
+                      }}
+                      variant="outline"
+                      size="sm"
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      ✕
+                    </Button>
+                  )}
+                </div>
+              ))}
+              <Button
+                onClick={() => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    members: [...prev.members, ""],
+                  }));
+                }}
+                variant="outline"
+                size="sm"
+                className="w-full text-emerald-600 hover:text-emerald-700 border-emerald-300 hover:border-emerald-400"
+              >
+                + Agregar Integrante
+              </Button>
+            </div>
           </div>
         </div>
       ),

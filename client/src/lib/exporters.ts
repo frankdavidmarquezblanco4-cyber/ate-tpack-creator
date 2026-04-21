@@ -7,9 +7,7 @@ interface ATEData {
   secretCode: string;
   disciplinaryArea: string;
   grade: string;
-  member1: string;
-  member2: string;
-  member3: string;
+  members: string[];
   learningObjective: string;
   pedagogicalStrategy: string;
   strategyJustification: string;
@@ -97,7 +95,7 @@ export const exportToPDF = (data: ATEData) => {
   doc.setFont("Helvetica", "normal");
   doc.text(`Área: ${data.disciplinaryArea}`, margin + 2, yPosition + 8);
   doc.text(`Grado: ${data.grade}`, margin + 2, yPosition + 12);
-  doc.text(`Integrantes: ${data.member1}${data.member2 ? ", " + data.member2 : ""}${data.member3 ? ", " + data.member3 : ""}`, margin + 2, yPosition + 16);
+  doc.text(`Integrantes: ${data.members.filter(m => m.trim()).join(", ") || "No especificados"}`, margin + 2, yPosition + 16);
 
   yPosition += 24;
 
@@ -345,7 +343,7 @@ export const exportToWord = (data: ATEData) => {
 
   sections.push(
     new Paragraph({
-      text: `Integrantes: ${data.member1}${data.member2 ? ", " + data.member2 : ""}${data.member3 ? ", " + data.member3 : ""}`,
+      text: `Integrantes: ${data.members.filter(m => m.trim()).join(", ") || "No especificados"}`,
       spacing: { after: 200 },
     })
   );
@@ -613,7 +611,7 @@ export const exportToPowerPoint = (data: ATEData) => {
     fontSize: 14,
     color: "000000",
   });
-  slide.addText(`Integrantes: ${data.member1}${data.member2 ? ", " + data.member2 : ""}${data.member3 ? ", " + data.member3 : ""}`, {
+  slide.addText(`Integrantes: ${data.members.filter(m => m.trim()).join(", ") || "No especificados"}`, {
     x: 0.5,
     y: infoY + 1.2,
     w: 9,
