@@ -1,0 +1,1 @@
+ALTER TABLE `ates` MODIFY COLUMN `accessCode` varchar(50) NOT NULL;

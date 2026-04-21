@@ -9,6 +9,8 @@ import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download, AlertCircle,
 import { toast } from "sonner";
 import { exportToPDF, exportToWord, exportToPowerPoint } from "@/lib/exporters";
 import FileUploader from "@/components/FileUploader";
+import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 interface ATEData {
   projectName: string;
@@ -85,6 +87,10 @@ export default function Creator() {
   const [showCustomTechType, setShowCustomTechType] = useState(false);
   const [showCustomTechCost, setShowCustomTechCost] = useState(false);
   const [showCustomDuration, setShowCustomDuration] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const { user } = useAuth();
+  const saveAteMutation = trpc.ate.save.useMutation();
 
   // Validación completa de todos los campos obligatorios
   const validateAllFieldsForSave = (): boolean => {
@@ -131,12 +137,36 @@ export default function Creator() {
   // Autosave SOLO si todos los campos están completos
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (validateAllFieldsForSave()) {
+      if (validateAllFieldsForSave() && user) {
+        // Guardar en localStorage como respaldo
         localStorage.setItem("ateFormData", JSON.stringify(formData));
+        
+        // Guardar en base de datos
+        setIsSaving(true);
+        saveAteMutation.mutate(
+          {
+            accessCode: formData.secretCode,
+            data: formData as unknown as Record<string, unknown>,
+          },
+          {
+            onError: (error) => {
+              console.error("Error saving to database:", error);
+              setIsSaving(false);
+            },
+            onSuccess: () => {
+              setIsSaving(false);
+            },
+          }
+        );
+      } else if (!user) {
+        // Si no hay usuario, guardar solo en localStorage
+        if (validateAllFieldsForSave()) {
+          localStorage.setItem("ateFormData", JSON.stringify(formData));
+        }
       }
     }, 1000);
     return () => clearTimeout(timer);
-  }, [formData]);
+  }, [formData, user, saveAteMutation]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
