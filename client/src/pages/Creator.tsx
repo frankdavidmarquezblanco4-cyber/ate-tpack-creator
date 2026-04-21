@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download, AlertCircle, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { exportToPDF, exportToWord, exportToPowerPoint } from "@/lib/exporters";
 import FileUploader from "@/components/FileUploader";
@@ -117,8 +118,26 @@ export default function Creator() {
     return true;
   };
 
-  // Cargar datos guardados cuando el usuario accede a su trabajo
+  // Cargar datos guardados cuando el usuario accede a su trabajo o selecciona una plantilla
   useEffect(() => {
+    // Primero intentar cargar una plantilla seleccionada
+    const selectedTemplate = sessionStorage.getItem("selectedTemplate");
+    if (selectedTemplate) {
+      try {
+        const { templates } = require("@/lib/templates");
+        const template = templates.find((t: any) => t.id === selectedTemplate);
+        if (template) {
+          setFormData(template.data);
+          sessionStorage.removeItem("selectedTemplate");
+          toast.success(`Plantilla "${template.name}" cargada. Personaliza los campos según tu contexto.`);
+          return;
+        }
+      } catch (error) {
+        console.error("Error loading template", error);
+      }
+    }
+
+    // Si no hay plantilla, intentar cargar datos guardados
     const isEditMode = localStorage.getItem("isEditMode");
     if (isEditMode === "true") {
       const saved = localStorage.getItem("ateFormData");

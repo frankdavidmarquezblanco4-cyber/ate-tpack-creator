@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Lightbulb, Zap, Plus, Home, FolderOpen, Sparkles, Layers } from "lucide-react";
+import { BookOpen, Lightbulb, Zap, Plus, Home, FolderOpen, Sparkles, Layers, Users } from "lucide-react";
 
 /**
  * Navigation Component
@@ -48,6 +48,10 @@ export default function Navigation() {
             <Link href="/templates" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-700 transition-colors flex items-center gap-2">
               <Layers className="w-4 h-4" />
               <span className="hidden sm:inline">Plantillas</span>
+            </Link>
+            <Link href="/gallery" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition-colors flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              <span className="hidden sm:inline">Galería</span>
             </Link>
             <Link href="/dashboard" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center gap-2">
               <FolderOpen className="w-4 h-4" />
