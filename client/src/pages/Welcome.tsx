@@ -10,6 +10,7 @@ export default function Welcome() {
   const [accessCode, setAccessCode] = useState("");
   const [showAccessCode, setShowAccessCode] = useState(false);
   const [searchMode, setSearchMode] = useState<"create" | "search" | null>(null);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(true);
 
   const handleSearch = () => {
     if (!accessCode.trim()) {
@@ -70,6 +71,59 @@ export default function Welcome() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      {/* Welcome Modal */}
+      {showWelcomeModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-lg bg-white border-2 border-blue-200 shadow-2xl">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8 rounded-t-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <Zap className="w-8 h-8" />
+                <h2 className="text-3xl font-bold">¡Bienvenido!</h2>
+              </div>
+            </div>
+            
+            <div className="p-8 space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">ATE-TPACK Creator</h3>
+                <p className="text-slate-700 leading-relaxed">
+                  Diseña experiencias de aprendizaje transformadoras integrando el modelo TPACK. 
+                  Combina Conocimiento de Contenido, Pedagógico y Tecnológico de forma coherente.
+                </p>
+              </div>
+              
+              <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                <p className="text-sm text-slate-700 font-semibold mb-2">💡 Consejos Importantes:</p>
+                <ul className="text-sm text-slate-600 space-y-1">
+                  <li>✓ Todos los campos con * son obligatorios</li>
+                  <li>✓ Tu trabajo se guarda automáticamente cada segundo</li>
+                  <li>✓ Guarda tu código de acceso en un lugar seguro</li>
+                  <li>✓ Usa el asistente virtual (chat) para resolver dudas</li>
+                </ul>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-sm font-semibold text-slate-900">¿Qué deseas hacer?</p>
+                <div className="flex flex-col gap-3">
+                  <Link href="/creator">
+                    <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 font-semibold gap-2 h-auto" onClick={() => setShowWelcomeModal(false)}>
+                      <Plus className="w-5 h-5" />
+                      Crear Nueva ATE
+                    </Button>
+                  </Link>
+                  
+                  <Button 
+                    onClick={() => setShowWelcomeModal(false)}
+                    variant="outline" 
+                    className="w-full border-2 border-slate-300 hover:border-blue-600 hover:bg-blue-50 py-3 font-semibold"
+                  >
+                    Explorar Primero
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-transparent to-orange-600/5" />
