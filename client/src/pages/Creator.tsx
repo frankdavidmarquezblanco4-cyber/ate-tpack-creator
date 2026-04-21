@@ -35,6 +35,12 @@ interface ATEData {
   closingDuration: string;
   closingTeacherRole: string;
   closingStudentRole: string;
+  technicalResources: Array<{
+    type: string;
+    accessCost: string;
+    technicalRequirement: string;
+    urlReference: string;
+  }>;
 }
 
 const initialData: ATEData = {
@@ -63,6 +69,7 @@ const initialData: ATEData = {
   closingDuration: "",
   closingTeacherRole: "",
   closingStudentRole: "",
+  technicalResources: [],
 };
 
 export default function Creator() {
@@ -97,6 +104,23 @@ export default function Creator() {
     
     return true;
   };
+
+  // Cargar datos guardados cuando el usuario accede a su trabajo
+  useEffect(() => {
+    const isEditMode = localStorage.getItem("isEditMode");
+    if (isEditMode === "true") {
+      const saved = localStorage.getItem("ateFormData");
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          setFormData(data);
+          localStorage.removeItem("isEditMode");
+        } catch (error) {
+          console.error("Error loading saved data", error);
+        }
+      }
+    }
+  }, []);
 
   // Autosave SOLO si todos los campos están completos
   useEffect(() => {
