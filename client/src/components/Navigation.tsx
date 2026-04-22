@@ -42,22 +42,7 @@ export default function Navigation() {
               <Lightbulb className="w-4 h-4" />
               <span className="hidden sm:inline">Ejemplo</span>
             </Link>
-            <Link href="/examples" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              <span className="hidden sm:inline">Ejemplos</span>
-            </Link>
-            <Link href="/templates" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-700 transition-colors flex items-center gap-2">
-              <Layers className="w-4 h-4" />
-              <span className="hidden sm:inline">Plantillas</span>
-            </Link>
-            <Link href="/gallery" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition-colors flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              <span className="hidden sm:inline">Galería</span>
-            </Link>
-            <Link href="/dashboard" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center gap-2">
-              <FolderOpen className="w-4 h-4" />
-              <span className="hidden sm:inline">Mis Trabajos</span>
-            </Link>
+
           </div>
 
           {/* Notification Center */}

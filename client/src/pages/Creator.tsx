@@ -5,12 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download, AlertCircle, Home, Upload } from "lucide-react";
+import { ArrowRight, ArrowLeft, Save, FileText, AlertCircle, Home } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { exportToPDF, exportToWord, exportToPowerPoint } from "@/lib/exporters";
-import FileUploader from "@/components/FileUploader";
-import LMSExport from "@/components/LMSExport";
+import { exportToPDF } from "@/lib/exporters";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { templates } from "@/lib/templates";
@@ -243,12 +241,6 @@ export default function Creator() {
       if (format === "pdf") {
         exportToPDF(formData);
         toast.success("PDF descargado exitosamente");
-      } else if (format === "word") {
-        exportToWord(formData);
-        toast.success("Documento Word descargado exitosamente");
-      } else if (format === "pptx") {
-        exportToPowerPoint(formData);
-        toast.success("Presentación PowerPoint descargada exitosamente");
       }
     } catch (error) {
       toast.error("Error al exportar. Intenta de nuevo.");
