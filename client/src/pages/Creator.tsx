@@ -13,6 +13,7 @@ import FileUploader from "@/components/FileUploader";
 import LMSExport from "@/components/LMSExport";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { templates } from "@/lib/templates";
 
 interface ATEData {
   projectName: string;
@@ -127,7 +128,6 @@ export default function Creator() {
     const selectedTemplate = sessionStorage.getItem("selectedTemplate");
     if (selectedTemplate) {
       try {
-        const { templates } = require("@/lib/templates");
         const template = templates.find((t: any) => t.id === selectedTemplate);
         if (template) {
           setFormData(template.data);
