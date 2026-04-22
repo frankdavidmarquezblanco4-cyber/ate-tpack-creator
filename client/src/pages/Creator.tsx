@@ -329,11 +329,11 @@ export default function Creator() {
               Código de Acceso *
             </label>
             <Input
-              placeholder="Cree una clave secreta para su grupo"
+              placeholder="Cree un código para su grupo"
               value={formData.secretCode}
               onChange={(e) => handleInputChange("secretCode", e.target.value)}
               className="w-full"
-              type="password"
+              type="text"
             />
           </div>
           <div>
@@ -351,12 +351,24 @@ export default function Creator() {
             <label className="block text-sm font-semibold text-gray-900 mb-2">
               Grado *
             </label>
-            <Input
-              placeholder="Ej: 8°, 9°, 10°, 11°"
-              value={formData.grade}
-              onChange={(e) => handleInputChange("grade", e.target.value)}
-              className="w-full"
-            />
+            <Select value={formData.grade} onValueChange={(value) => handleInputChange("grade", value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecciona un grado" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1°</SelectItem>
+                <SelectItem value="2">2°</SelectItem>
+                <SelectItem value="3">3°</SelectItem>
+                <SelectItem value="4">4°</SelectItem>
+                <SelectItem value="5">5°</SelectItem>
+                <SelectItem value="6">6°</SelectItem>
+                <SelectItem value="7">7°</SelectItem>
+                <SelectItem value="8">8°</SelectItem>
+                <SelectItem value="9">9°</SelectItem>
+                <SelectItem value="10">10°</SelectItem>
+                <SelectItem value="11">11°</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div>
             <label className="block text-sm font-semibold text-gray-900 mb-4">
@@ -602,23 +614,7 @@ export default function Creator() {
               )}
             </div>
           </div>
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Archivos de Referencia (Opcional)
-            </label>
-            <p className="text-xs text-gray-600 mb-3">
-              Sube documentos, imágenes o referencias que apoyen tu ATE (PDF, Word, imágenes, etc.)
-            </p>
-            <FileUploader
-              onFilesChange={(files) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  referenceFiles: files,
-                }));
-              }}
-              initialFiles={formData.referenceFiles}
-            />
-          </div>
+
         </div>
       ),
     },
@@ -1025,36 +1021,10 @@ export default function Creator() {
                 <FileText className="w-8 h-8 text-red-600" />
                 <span className="font-semibold text-gray-900">Descargar PDF</span>
               </button>
-              
-              <button
-                onClick={() => handleExport("word")}
-                className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-blue-300 hover:border-blue-500 hover:shadow-lg rounded-lg transition-all"
-              >
-                <FileDown className="w-8 h-8 text-blue-600" />
-                <span className="font-semibold text-gray-900">Descargar Word</span>
-              </button>
-              
-              <button
-                onClick={() => handleExport("pptx")}
-                className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-orange-300 hover:border-orange-500 hover:shadow-lg rounded-lg transition-all"
-              >
-                <Download className="w-8 h-8 text-orange-600" />
-                <span className="font-semibold text-gray-900">Generar PowerPoint</span>
-              </button>
-              
-              <button
-                onClick={() => setShowLMSExport(true)}
-                className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-purple-300 hover:border-purple-500 hover:shadow-lg rounded-lg transition-all"
-              >
-                <Upload className="w-8 h-8 text-purple-600" />
-                <span className="font-semibold text-gray-900">Exportar a LMS</span>
-              </button>
             </div>
           </Card>
         )}
-        {showLMSExport && ateId && (
-          <LMSExport ateId={ateId} onClose={() => setShowLMSExport(false)} />
-        )}
+
       </div>
     </div>
   );
