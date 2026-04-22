@@ -287,73 +287,7 @@ export default function Welcome() {
         </div>
       )}
 
-      {/* Features Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            ¿Cómo Funciona?
-          </h2>
-          <p className="text-lg text-slate-600">
-            Tres pasos simples para crear una ATE profesional
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Step 1 */}
-          <div className="group">
-            <div className="relative mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-blue-600/5 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-              <div className="relative bg-white rounded-2xl p-8 border border-slate-200 shadow-md group-hover:shadow-lg transition-all">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4">
-                  1
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  Información del Grupo
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Completa los datos de tu equipo, área disciplinar y grado escolar.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Step 2 */}
-          <div className="group">
-            <div className="relative mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-600/10 to-green-600/5 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-              <div className="relative bg-white rounded-2xl p-8 border border-slate-200 shadow-md group-hover:shadow-lg transition-all">
-                <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-green-700 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4">
-                  2
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  Diseña tu ATE
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Completa el problema pedagógico, tecnología y secuencia didáctica.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Step 3 */}
-          <div className="group">
-            <div className="relative mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/10 to-orange-600/5 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-              <div className="relative bg-white rounded-2xl p-8 border border-slate-200 shadow-md group-hover:shadow-lg transition-all">
-                <div className="w-14 h-14 bg-gradient-to-br from-orange-600 to-orange-700 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4">
-                  3
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  Exporta y Comparte
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Descarga tu ATE en PDF, Word o PowerPoint para compartir.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

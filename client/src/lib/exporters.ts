@@ -106,9 +106,10 @@ export const exportToPDF = (data: ATEData) => {
   doc.setFont("Helvetica", "normal");
   doc.text(`Área: ${data.disciplinaryArea}`, margin + 2, yPosition + 9);
   doc.text(`Grado: ${data.grade}`, margin + 2, yPosition + 14);
-  doc.text(`Integrantes: ${data.members.filter(m => m.trim()).join(", ") || "No especificados"}`, margin + 2, yPosition + 19);
+  doc.text(`Tiempo Total: ${data.totalDuration} minutos`, margin + 2, yPosition + 19);
+  doc.text(`Integrantes: ${data.members.filter(m => m.trim()).join(", ") || "No especificados"}`, margin + 2, yPosition + 24);
 
-  yPosition += 28;
+  yPosition += 33;
 
   // CK Section
   checkPageBreak(20);

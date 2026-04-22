@@ -154,14 +154,16 @@ export default function Creator() {
     }
   }, []);
 
-  // Autosave SOLO si todos los campos están completos
+  // Autosave: guardar borradores incluso si estan incompletos
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (validateAllFieldsForSave() && user) {
-        // Guardar en localStorage como respaldo
+      // Siempre guardar en localStorage como respaldo
+      if (formData.secretCode && formData.projectName) {
         localStorage.setItem("ateFormData", JSON.stringify(formData));
-        
-        // Guardar en base de datos
+      }
+      
+      // Si el usuario esta autenticado y hay codigo de acceso, guardar en BD
+      if (user && formData.secretCode && formData.projectName) {
         setIsSaving(true);
         saveAteMutation.mutate(
           {
@@ -169,7 +171,7 @@ export default function Creator() {
             data: formData as unknown as Record<string, unknown>,
           },
           {
-            onError: (error) => {
+            onError: (error: any) => {
               console.error("Error saving to database:", error);
               setIsSaving(false);
             },
@@ -178,15 +180,10 @@ export default function Creator() {
             },
           }
         );
-      } else if (!user) {
-        // Si no hay usuario, guardar solo en localStorage
-        if (validateAllFieldsForSave()) {
-          localStorage.setItem("ateFormData", JSON.stringify(formData));
-        }
       }
     }, 1000);
     return () => clearTimeout(timer);
-  }, [formData, user, saveAteMutation]);
+  }, [formData.secretCode, formData.projectName, user?.id, saveAteMutation]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
