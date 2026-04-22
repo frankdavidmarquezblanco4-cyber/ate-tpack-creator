@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Lightbulb, Zap, Plus, Home, FolderOpen, Sparkles, Layers, Users } from "lucide-react";
+import NotificationCenter from "./NotificationCenter";
 
 /**
  * Navigation Component
@@ -58,6 +59,9 @@ export default function Navigation() {
               <span className="hidden sm:inline">Mis Trabajos</span>
             </Link>
           </div>
+
+          {/* Notification Center */}
+          <NotificationCenter />
 
           {/* CTA Button */}
           <Link href="/creator">

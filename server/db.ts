@@ -148,3 +148,111 @@ export async function getUserATEs(userId: number): Promise<ATE[]> {
     throw error;
   }
 }
+
+// Import new types
+import { ratings, notifications, lmsExports } from "../drizzle/schema";
+
+// Rating queries
+export async function addRating(userId: number, ateId: number, score: number, comment?: string) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.insert(ratings).values({
+      userId,
+      ateId,
+      score,
+      comment,
+    }).onDuplicateKeyUpdate({
+      set: {
+        score,
+        comment,
+        updatedAt: new Date(),
+      },
+    });
+
+    const rating = await db.select().from(ratings).where(eq(ratings.ateId, ateId)).limit(1);
+    return rating[0];
+  } catch (error) {
+    console.error("[Database] Failed to add rating:", error);
+    throw error;
+  }
+}
+
+export async function getATERatings(ateId: number) {
+  const db = await getDb();
+  if (!db) {
+    return [];
+  }
+
+  try {
+    return await db.select().from(ratings).where(eq(ratings.ateId, ateId));
+  } catch (error) {
+    console.error("[Database] Failed to get ATE ratings:", error);
+    return [];
+  }
+}
+
+// Notification queries
+export async function createNotification(userId: number, type: string, ateId: number, message: string, fromUserId?: number) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.insert(notifications).values({
+      userId,
+      type: type as any,
+      ateId,
+      fromUserId,
+      message,
+    });
+
+    const notification = await db.select().from(notifications).orderBy(notifications.createdAt).limit(1);
+    return notification[0];
+  } catch (error) {
+    console.error("[Database] Failed to create notification:", error);
+    throw error;
+  }
+}
+
+export async function getUserNotifications(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    return [];
+  }
+
+  try {
+    return await db.select().from(notifications).where(eq(notifications.userId, userId));
+  } catch (error) {
+    console.error("[Database] Failed to get notifications:", error);
+    return [];
+  }
+}
+
+// LMS Export queries
+export async function createLMSExport(userId: number, ateId: number, lmsType: string, lmsUrl: string, courseId: string) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.insert(lmsExports).values({
+      userId,
+      ateId,
+      lmsType: lmsType as any,
+      lmsUrl,
+      courseId,
+    });
+
+    const lmsExport = await db.select().from(lmsExports).orderBy(lmsExports.exportedAt).limit(1);
+    return lmsExport[0];
+  } catch (error) {
+    console.error("[Database] Failed to create LMS export:", error);
+    throw error;
+  }
+}

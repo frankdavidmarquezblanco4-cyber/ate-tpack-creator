@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download, AlertCircle, Home } from "lucide-react";
+import { ArrowRight, ArrowLeft, Save, FileText, FileDown, Download, AlertCircle, Home, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { exportToPDF, exportToWord, exportToPowerPoint } from "@/lib/exporters";
 import FileUploader from "@/components/FileUploader";
+import LMSExport from "@/components/LMSExport";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -89,6 +90,8 @@ export default function Creator() {
   const [showCustomTechCost, setShowCustomTechCost] = useState(false);
   const [showCustomDuration, setShowCustomDuration] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showLMSExport, setShowLMSExport] = useState(false);
+  const [ateId, setAteId] = useState<number | null>(null);
 
   const { user } = useAuth();
   const saveAteMutation = trpc.ate.save.useMutation();
@@ -1038,8 +1041,19 @@ export default function Creator() {
                 <Download className="w-8 h-8 text-orange-600" />
                 <span className="font-semibold text-gray-900">Generar PowerPoint</span>
               </button>
+              
+              <button
+                onClick={() => setShowLMSExport(true)}
+                className="flex flex-col items-center gap-3 p-6 bg-white border-2 border-purple-300 hover:border-purple-500 hover:shadow-lg rounded-lg transition-all"
+              >
+                <Upload className="w-8 h-8 text-purple-600" />
+                <span className="font-semibold text-gray-900">Exportar a LMS</span>
+              </button>
             </div>
           </Card>
+        )}
+        {showLMSExport && ateId && (
+          <LMSExport ateId={ateId} onClose={() => setShowLMSExport(false)} />
         )}
       </div>
     </div>

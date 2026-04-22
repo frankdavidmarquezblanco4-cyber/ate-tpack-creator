@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
-import { saveATE, getATEByAccessCode, getUserATEs } from "./db";
+import { saveATE, getATEByAccessCode, getUserATEs, addRating, getATERatings, createNotification, getUserNotifications, createLMSExport } from "./db";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -57,6 +57,70 @@ export const appRouter = router({
           updatedAt: ate.updatedAt,
           data: JSON.parse(ate.data as string),
         }));
+      }),
+
+    addRating: protectedProcedure
+      .input(z.object({
+        ateId: z.number(),
+        score: z.number().min(1).max(5),
+        comment: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const rating = await addRating(ctx.user.id, input.ateId, input.score, input.comment);
+        return { success: true, rating };
+      }),
+
+    getRatings: publicProcedure
+      .input(z.object({
+        ateId: z.number(),
+      }))
+      .query(async ({ input }) => {
+        return await getATERatings(input.ateId);
+      }),
+  }),
+
+  notifications: router({
+    create: protectedProcedure
+      .input(z.object({
+        type: z.enum(["download", "share", "rating", "comment"]),
+        ateId: z.number(),
+        message: z.string(),
+        fromUserId: z.number().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const notification = await createNotification(
+          ctx.user.id,
+          input.type,
+          input.ateId,
+          input.message,
+          input.fromUserId
+        );
+        return { success: true, notification };
+      }),
+
+    list: protectedProcedure
+      .query(async ({ ctx }) => {
+        return await getUserNotifications(ctx.user.id);
+      }),
+  }),
+
+  lms: router({
+    export: protectedProcedure
+      .input(z.object({
+        ateId: z.number(),
+        lmsType: z.enum(["moodle", "canvas", "blackboard"]),
+        lmsUrl: z.string().url(),
+        courseId: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const lmsExport = await createLMSExport(
+          ctx.user.id,
+          input.ateId,
+          input.lmsType,
+          input.lmsUrl,
+          input.courseId
+        );
+        return { success: true, lmsExport };
       }),
   }),
 });
